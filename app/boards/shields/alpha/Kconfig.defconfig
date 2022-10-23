@@ -1,0 +1,6 @@
+if SHIELD_ALPHA
+
+config ZMK_KEYBOARD_NAME
+    default "Alpha"
+
+endif
