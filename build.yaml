@@ -15,5 +15,6 @@
 include:
   - board: nice_nano_v2
     shield: alpha
+#  - board: atreus
 #  - board: seeeduino_xiao_ble
 #    shield: hummingbird
