@@ -9,9 +9,5 @@ manifest:
       remote: urob
       revision: main
       import: app/west.yml
-    - name: ogzmk
-      remote: zmkfirmware
-      revision: main
-      import: app/west.yml
   self:
     path: config
