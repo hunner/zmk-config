@@ -13,6 +13,11 @@
 #define COMBO_TERM_FAST 20
 #define COMBO_TERM_SLOW 35
 
+ZMK_COMBO_ADV(esc,   &kp ESC,       LT3 LT2,     HELM, COMBO_TERM_FAST)
+ZMK_COMBO_ADV(tab,   &kp TAB,       LT2 LT1,     HELM, COMBO_TERM_FAST)
+ZMK_COMBO_ADV(bspc,  &kp BSPC,      RT2 RT3,     HELM, COMBO_TERM_FAST)
+ZMK_COMBO_ADV(spc,   &kp SPACE,     RB2 RB3,     HELM, COMBO_TERM_FAST)
+
 /* Punctuation (horizontal left hand) */
 //ZMK_COMBO_ADV(num,   &num_word,     LT3 LT1,     HELM, COMBO_TERM_SLOW)
 //ZMK_COMBO_ADV(esc,   &kp ESC,       LT3 LT2,     HELM, COMBO_TERM_FAST)
