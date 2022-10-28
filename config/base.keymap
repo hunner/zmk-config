@@ -42,8 +42,8 @@ ZMK_CONDITIONAL_LAYER(PORT STARBOARD, AFT)
 #define DSK_NEXT    &kp LG(LC(RIGHT))  // next     desktop
 
 
-#define L_BSPC      &mt PORT BSPC
-#define R_SPC       &mt STARBOARD SPC
+#define L_BSPC      &lt PORT BSPC
+#define R_SPC       &lt STARBOARD SPC
 #define L_THUMB     L_BSPC
 #define R_THUMB     R_SPC
 #define PASTE       &kp LS(INSERT)
