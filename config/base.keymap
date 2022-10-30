@@ -233,9 +233,9 @@ ZMK_LAYER(aft_layer,
     // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
         &kp F1        &kp F2        &kp F3        &kp F4        &kp F5            &kp F6        &kp F7        &kp F8        &kp F9        &kp F10
     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-        &kp F11       &kp F12       &kp INSERT    &kp DELETE    PASTE             &mwh SCROLL_LEFT &mwh MOVE_LEFT &mwh MOVE_DOWN &mwh MOVE_UP &mwh MOVE_RIGHT
+        &kp F11       &kp F12       &kp INSERT    &kp DELETE    PASTE             &mwh SCROLL_LEFT &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT
     // ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────╯
-                      &kp LCLK      &kp RCLK      &kp MCLK      L_THUMB           R_THUMB       &kp SCROLL_DOWN &kp SCROLL_UP &kp SCROLL_RIGHT
+                      &mkp LCLK     &mkp RCLK     &mkp MCLK     L_THUMB           R_THUMB       &mwh SCROLL_DOWN &mwh SCROLL_UP &mwh SCROLL_RIGHT
     //               ╰─────────────┴─────────────┼─────────────┼─────────────╯   ╰─────────────┴─────────────┼─────────────┼─────────────╯
 )
 
