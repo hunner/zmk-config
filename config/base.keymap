@@ -12,8 +12,8 @@
 #define STENO 4
 #define TAIPO 5
 
-#include "combos.dtsi"  // must be sourced after layer-shortcuts
 #include "mouse.dtsi"
+#include "combos.dtsi"
 #include "xtr_defaults.h"
 
 ZMK_CONDITIONAL_LAYER(PORT STARBOARD, AFT)
