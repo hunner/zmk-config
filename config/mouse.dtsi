@@ -2,7 +2,7 @@
 
 &mmv {
   time-to-max-speed-ms = <80>;
-  acceleration-exponent = <2>;
+  acceleration-exponent = <0>;
   delay-ms = <0>;
 };
 
@@ -12,8 +12,8 @@
   delay-ms = <10>;
 };
 
-#define U_MOUSE_MOVE_MAX 600
-#define U_MOUSE_SCROLL_MAX 10
+#define U_MOUSE_MOVE_MAX 1600
+#define U_MOUSE_SCROLL_MAX 12
 
 #undef MOVE_UP
 #undef MOVE_DOWN
