@@ -1,7 +1,7 @@
 #include <dt-bindings/zmk/mouse.h>
 
 &mmv {
-  time-to-max-speed-ms = <250>;
+  time-to-max-speed-ms = <1250>;
   acceleration-exponent = <0>;
   delay-ms = <10>;
 };
