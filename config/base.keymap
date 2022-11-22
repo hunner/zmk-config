@@ -52,8 +52,8 @@ ZMK_CONDITIONAL_LAYER(PORT STARBOARD, AFT)
 #define PASTE       &kp LS(INSERT)
 
 // Aptmak thumbs are layertap and spc/e
-#define PORT_E      &lt PORT E
-#define STAR_SP     &lt STARBOARD SPC
+#define PORT_SP     &lt PORT SPC
+#define STARB_E     &lt STARBOARD E
 
 
 /* Settings */
@@ -238,7 +238,7 @@ ZMK_LAYER(aptmak_layer,
     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
         &kp R         &kp S         &kp T         &kp H         &kp K             &kp X         &kp N         &kp A         &kp I         &kp O
     // ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────╯
-                      &kp C         &kp G         &kp D         PORT_E            STAR_SP       &kp M         &kp COMMA     &kp DOT
+                      &kp C         &kp G         &kp D         PORT_SP           STARB_E       &kp M         &kp COMMA     &kp DOT
     //               ╰─────────────┴─────────────┼─────────────┼─────────────╯   ╰─────────────┴─────────────┼─────────────┼─────────────╯
 )
 
