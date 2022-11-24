@@ -23,8 +23,8 @@ ZMK_COMBO_ADV(lclk,  &mkp LCLK,     LB3 LB2,     HELM, COMBO_TERM_FAST)
 ZMK_COMBO_ADV(rclk,  &mkp RCLK,     LB2 LB1,     HELM, COMBO_TERM_FAST)
 
 // Aptmak combos
-ZMK_COMBO_ADV(amz,   &kp Z,         LB3 LB2,     APTMAK, COMBO_TERM_FAST)
-ZMK_COMBO_ADV(amq,   &kp Q,         LB3 LB1,     APTMAK, COMBO_TERM_FAST)
+ZMK_COMBO_ADV(amz,   &kp Z,         LB3 LB2,     APTMAK, COMBO_TERM_SLOW)
+ZMK_COMBO_ADV(amq,   &kp Q,         LB3 LB1,     APTMAK, COMBO_TERM_SLOW)
 
 /* Punctuation (horizontal left hand) */
 //ZMK_COMBO_ADV(num,   &num_word,     LT3 LT1,     HELM, COMBO_TERM_SLOW)
