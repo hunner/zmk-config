@@ -27,7 +27,7 @@ The following convenience macros are provided:
 
 ## Quickstart
 
-1. Copy this repository into the root folder of your zmk-config. The
+1. Copy this repository into the root folder of your zmk-config (or add as submodule[^1]). The
    folder structure should look as follows:
    ```
     zmk-config
@@ -52,14 +52,14 @@ The following convenience macros are provided:
 ### ZMK\_BEHAVIOR
 
 `ZMK_BEHAVIOR` can be used to create any of the following ZMK behaviors: caps-word,
-hold-tap, key-repeat, macro, mod-morph, sticky-key or tap-dance
+hold-tap, key-repeat, macro, mod-morph, sticky-key, tap-dance or tri-state.
 
 **Syntax:** `ZMK_BEHAVIOR(name, type, specification)`
 * `name`: a unique string chosen by the user (e.g., `my_behavior`). The new behavior can
   be added to the keymap using `&name` (e.g., `&my_behavior`).
 * `type`: the behavior to be created. It must be one of the following:
-  `caps_word`, `hold_tap`, `key_repeat`, `macro`, `mod_morph`, `sticky_key` or
-  `tap_dance`. Note that two-word types are separated by underscores (`_`).
+  `caps_word`, `hold_tap`, `key_repeat`, `macro`, `mod_morph`, `sticky_key`,
+  `tap_dance` or `tri_state`. Note that multiword behaviors are separated by underscores (`_`).
 * `specification`: the custom behavior code. It should contain the
   body of the corresponding [ZMK behavior configuration](https://zmk.dev/docs/config/behaviors)
   without the `label`, `#binding-cells` and `compatible` properties and without the
@@ -107,10 +107,11 @@ This creates a "Windows sleep macro" that can be added to the keymap using `&win
 
 `ZMK_LAYER` adds new keymap layers to the configuration.
 
-**Syntax:** `ZMK_LAYER(name, layout)`
-* `name`: a unique identifier string chosen by the user (usually there is no reason to reference this elsewhere)
+**Syntax:** `ZMK_LAYER(name, layout, sensors)`
+* `name`: a unique identifier string chosen by the user (it will be displayed on keyboards with appropriately configured displays)
 * `layout`: the layout specification using the same syntax as the `bindings`
   property of the [ZMK keymap configuration](https://zmk.dev/docs/config/keymap)
+* `sensors` (optional): provides sensor-specification if specified
 
 Multiple layers can be added with repeated calls of `ZMK_LAYER`. They will be ordered
 in the same order in which they are created, with the first-specified layer being
@@ -136,7 +137,7 @@ ZMK_KEYMAP(default_layer,
 
 `ZMK_COMBO` defines new combos.
 
-**Syntax:** `ZMK_COMBO(name, bindings, keypos, layers)`
+**Syntax:** `ZMK_COMBO(name, bindings, keypos, layers, timeout)`
 * `name`: a unique identifier string chosen by the user (usually there is not reason to reference this elsewhere)
 * `binding`: the binding triggered by the combo (this can be any stock or previously defined behavior)
 * `keypos`: a list of 2 or more key positions that trigger the combo (e.g., `12
@@ -145,16 +146,20 @@ ZMK_KEYMAP(default_layer,
   See [below](#key-position-helpers) on how to use them.
 * `layers`: a list of layers for which the combo is active (e.g., `0 1` for the first
   two layers). If set to `ALL` the combo is active on all layers.
+* `timeout` (optional): combo timeout in ms. If omitted the timeout is set to the
+  global value of `COMBO_TERM`, which defaults to 30ms and can be overwritten by the
+  user as in the second example below.
 
-By default, the timeout for combos created with `ZMK_COMBO` is 30ms. If `COMBO_TERM` is
-reset prior to calling `ZMK_COMBO`, the new value of `COMBO_TERM` is used instead.
-Alternatively, one can use `ZMK_COMBO_ADV` which allows to specify the combo-timeout directly 
-as 5th argument.
+#### Example: escape combo
 
-Note: with older ZMK versions, using different combo-timeouts would result in keys
-getting stuck. If this is an issue, try updating to the latest ZMK version.
+```C++
+ZMK_COMBO(esc,  &kp ESC, 0 1, ALL, 25)
+```
+This creates an "escape" combo that is active on all layers and which is triggered when
+the 0th and 1st keys are
+pressed jointly within 25ms.
 
-#### Example: copy and paste combos
+#### Example: copy and paste combos (using global COMBO_TERM)
 
 ```C++
 #undef COMBO_TERM
@@ -162,9 +167,9 @@ getting stuck. If this is an issue, try updating to the latest ZMK version.
 ZMK_COMBO(copy,  &kp LC(C), 12 13, ALL)
 ZMK_COMBO(paste, &kp LC(V), 13 14, ALL)
 ```
-This sets the combo timeout to 50ms, and then creates two combos which both are 
-active on all layers. The first combo is triggered when the
-12th and 13th keys are pressed jointly within the `COMBO_TERM`, sending <kbd>Ctrl</kbd> + <kbd>C</kbd>. The
+This sets the global combo timeout to 50ms, and then creates two combos which both are
+active on all layers. The first combo is triggered when the 12th and 13th keys are
+pressed jointly within the `COMBO_TERM`, sending <kbd>Ctrl</kbd> + <kbd>C</kbd>. The
 second combo is triggered when the 13th and 14th keys are pressed jointly, sending
 <kbd>Ctrl</kbd> + <kbd>V</kbd>.
 
@@ -273,7 +278,7 @@ The creates "umlaut" pairs that can be added to the keymap using `&de_ae`, `&de_
     This will send unicode characters using the OS's default input channels.
     For non-default input channels or for other operating systems, one can instead set the
     variables `OS_UNICODE_LEAD` and `OS_UNICODE_TRAIL` to the character sequences that
-    initialize/terminate the unicode input.[^1]
+    initialize/terminate the unicode input.[^2]
 
 * On Windows and macOS there are additional requirements for unicode input to work. On
   Windows, one must install [WinCompose](https://github.com/samhocevar/wincompose) for
@@ -282,17 +287,19 @@ The creates "umlaut" pairs that can be added to the keymap using `&de_ae`, `&de_
 
 ### International characters
 
-There are pre-defined definitions for international characters for a few
-languages  --- currently German, Greek and Swedish (contributions are welcome)[^2]. These can be
-loaded by sourcing the corresponding files; e.g.:
+There are pre-defined definitions for international characters for a few languages  ---
+currently Danish, French, German, Greek and Swedish (contributions are welcome)[^3].
+These can be loaded by sourcing the corresponding files; e.g.:
 ```C++
+#include "../zmk-nodefree-config/international_chars/danish.dtsi"
+#include "../zmk-nodefree-config/international_chars/french.dtsi"
 #include "../zmk-nodefree-config/international_chars/german.dtsi"
 #include "../zmk-nodefree-config/international_chars/greek.dtsi"
 #include "../zmk-nodefree-config/international_chars/swedish.dtsi"
 ```
-Once sourced, international characters can be added to the
-keymap using, e.g., `&de_ae`, `&el_alpha` or `&sv_ao`
-(each language has its own prefix; see the language files for a complete list of available characters).
+Once sourced, international characters can be added to the keymap using, e.g., `&de_ae`,
+`&dk_ae`, `&fr_a_grave`, `&el_alpha` or `&sv_ao` (each language has its own prefix; see
+the language files for a complete list of available characters).
 
 **Dependencies:** These definitions make use of unicode in the background,
 see the unicode section above for [prerequisites](#dependencies-for-unicode).
@@ -311,8 +318,8 @@ physical position of keys on the keyboard. This can be cumbersome and reduces
 portability of configuration files across keyboards with different layouts. 
 
 To increase portability and ease of use, this repo provides optional key-position
-helpers for some popular keyboard layouts (48-key boards such as Planck, 42-key
-boards such as Corne, 36-key boards and 34-key boards).
+helpers for some popular keyboard layouts (58-key boards such as Lily58, 48-key boards
+such as Planck, 42-key boards such as Corne, 36-key boards and 34-key boards).
 
 These key-position helpers provide a map from the physical key positions to human-readable shortcuts.
 All shortcuts are of the following form:
@@ -383,26 +390,39 @@ ZMK_BEHAVIOR(hmr, hold_tap,  // right-hand HRMs
 
 ## Changelog
 
+* **1/3/2023:** Optional `TIMEOUT` argument for `ZMK_COMBO` subsuming the now
+  depreciated `ZMK_COMBO_ADV`
+* **1/2/2023:** Optional sensor-bindings argument to `ZMK_LAYER` + keypos definitions
+  for lily58 (added by [@laureyn](https://github.com/laureyn))
+* **12/28/2022:** French chars (added by [@artggd](https://github.com/artggd))
+* **12/18/2022:** Use layer name as display label
+* **11/16/2022:** Danish chars (added by [@zonique2k](https://github.com/zonique2k))
+* **11/09/2022:** Support for tri-state behavior (aka "swapper"), requires PR #1366
 * **10/16/2022:** Remove dependency on PR #1412 as it is now merged into main
 * **10/08/2022:** Remove depreciated masked-mods option from unicode helper
 * **9/11/2022:** Support for Windows-Alt-Codes
-* **8/05/2022:** New combo macro `ZMK_COMBO_ADV` for "advanced" combo setups. Compared
-  to the regular `ZMK_COMBO` macro, it takes the combo-timeout as fifth argument.
-  Moreover, if `COMBO_HOOK` is defined, it includes its definition as additional
-  options. For example, to use the new global-quick-tap for combos option introduced in
-  [PR #1387](https://github.com/andrewjrae/zmk/tree/min-prior-ms), one would set
-  `#define COMBO_HOOK global-quick-tap-ms = <125>;` before calling `ZMK_COMBO_ADV`.
-  See [my personal combo
-  setup](https://github.com/urob/zmk-config/blob/main/config/combos.dtsi) for examples.
+* **8/05/2022:** New macro `ZMK_COMBO_ADV` for "advanced" combo setups. **Note:**
+  depreciated as of 1/3/2023
 * **7/31/2022:** Switch unicode dependency from PR #1114 to
   [PR #1412](https://github.com/zmkfirmware/zmk/pull/1412)
 
+[^1]: If building with Github Actions, using submodules requires replacing
+  `.github/workflows/build.yml` in the local `zmk-config` with
+    ```
+    on: [push, pull_request, workflow_dispatch]
 
-[^1]: The default for Windows is `OS_UNICODE_LEAD` set to tap <kbd>Right Alt</kbd>
+    jobs:
+      build:
+        uses: urob/zmk/.github/workflows/build-user-config.yml@build-with-submodules
+    ```
+
+[^2]: The default for Windows is `OS_UNICODE_LEAD` set to tap <kbd>Right Alt</kbd>
     followed by <kbd>U</kbd> and `OS_UNICODE_TRAIL` set to tap <kbd>Return</kbd>. 
     The default for Linux is `OS_UNICODE_LEAD` set to tap <kbd>Shift</kbd> +
     <kbd>Ctrl</kbd> + <kbd>U</kbd> and `OS_UNICODE_TRAIL` set to tap <kbd>Space</kbd>. 
     The default for macOS is `OS_UNICODE_LEAD` set to hold <kbd>Left Alt</kbd>
     and `OS_UNICODE_TRAIL` set to release <kbd>Left Alt</kbd>.
 
-[^2]: Swedish language support was added by discord user "captainwoot".
+[^3]: Swedish character support was added by discord user "captainwoot". Danish
+  character support was added by [@zonique2k](https://github.com/zonique2k). French
+  character support was added by [@artggd](https://github.com/artggd).
