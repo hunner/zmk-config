@@ -4,7 +4,7 @@
   │  0   1   2   3   4 │  5   6   7   8   9 │ │ LT4 LT3 LT2 LT1 LT0 │ RT0 RT1 RT2 RT3 RT4 │
   │ 10  11  12  13  14 │ 15  16  17  18  19 │ │ LM4 LM3 LM2 LM1 LM0 │ RM0 RM1 RM2 RM3 RM4 │
   ╰───╮ 20  21  22     │     23  24  25 ╭───╯ ╰───╮ LB3 LB2 LB1     │     RB1 RB2 RB3 ╭───╯
-      ╰───────╮ 26  27 │ 28  29 ╭───────╯         ╰───────╮ XXX LH0 │ RH0 XXX ╭───────╯
+      ╰───────╮ 26  27 │ 28  29 ╭───────╯         ╰───────╮ LH1 LH0 │ RH0 RH1 ╭───────╯
               ╰────────┴────────╯                         ╰─────────┴─────────╯             */
 
 #pragma once
@@ -42,6 +42,8 @@
 #define RB3 25
 
 #define LH0 27  // left thumb keys
+#define LH1 26
 
 #define RH0 28  // right thumb keys
+#define RH1 29
 
