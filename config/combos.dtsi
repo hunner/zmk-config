@@ -3,7 +3,7 @@
   ╭─────────────────────╮ ╭─────────────────────╮
   │ LT4 LT3 LT2 LT1 LT0 │ │ RT0 RT1 RT2 RT3 RT4 │
   │ LM4 LM3 LM2 LM1 LM0 │ │ RM0 RM1 RM2 RM3 RM4 │
-  ╰───╮ LB3 LB2 LB1 LB0 │ │ RB0 RB1 RB2 RB3 ╭───╯
+  ╰───╮ LB3 LB2 LB1 LH0 │ │ RH0 RB1 RB2 RB3 ╭───╯
       ╰─────────────────╯ ╰─────────────────╯ */
 
 // use global-quick-tap-ms for combos (requires PR 1387)
@@ -63,9 +63,9 @@ ZMK_COMBO(amq,   &kp Q,         LB3 LB1,     APTMAK, COMBO_TERM_SLOW)
 //ZMK_COMBO(grave, &kp GRAVE,     LM3 LB3,     HELM, COMBO_TERM_SLOW)
 //ZMK_COMBO(bslh,  &kp BSLH,      LM2 LB2,     HELM, COMBO_TERM_SLOW)
 //ZMK_COMBO(equal, &kp EQUAL,     LM1 LB1,     HELM, COMBO_TERM_SLOW)
-//ZMK_COMBO(tilde, &kp TILDE,     LM0 LB0,     HELM, COMBO_TERM_SLOW)
+//ZMK_COMBO(tilde, &kp TILDE,     LM0 LH0,     HELM, COMBO_TERM_SLOW)
 //
-//ZMK_COMBO(under, &kp UNDER,     RM0 RB0,     HELM, COMBO_TERM_SLOW)
+//ZMK_COMBO(under, &kp UNDER,     RM0 RH0,     HELM, COMBO_TERM_SLOW)
 //ZMK_COMBO(minus, &kp MINUS,     RM1 RB1,     HELM, COMBO_TERM_SLOW)
 //ZMK_COMBO(fslh,  &kp FSLH,      RM2 RB2,     HELM, COMBO_TERM_SLOW)
 //ZMK_COMBO(pipe,  &kp PIPE,      RM3 RB3,     HELM, COMBO_TERM_SLOW)
