@@ -37,7 +37,6 @@
 //};
 
 / {
-/*
   hm: homerow_mods {
     compatible = "zmk,behavior-hold-tap";
     label = "HOMEROW_MODS";
@@ -46,6 +45,7 @@
     flavor = "tap-preferred";
     bindings = <&kp>, <&kp>;
   };
+/*
   combos {
     compatible = "zmk,combos";
     combo_del {
