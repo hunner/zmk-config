@@ -4,156 +4,156 @@
 #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/led/led.h>
 
-&spi1 {
-  compatible = "nordic,nrf-spim";
-  status = "okay";
-  mosi-pin = <2>;
-  // Unused pins, needed for SPI definition, but not used by the ws2812 driver itself.
-  sck-pin = <15>;
-  miso-pin = <14>;
+//&spi1 {
+//  compatible = "nordic,nrf-spim";
+//  status = "okay";
+//  mosi-pin = <2>;
+//  // Unused pins, needed for SPI definition, but not used by the ws2812 driver itself.
+//  sck-pin = <13>;
+//  miso-pin = <12>;
+//
+//  led_strip: ws2812@0 {
+//    compatible = "worldsemi,ws2812-spi";
+//    label = "WS2812";
+//
+//    /* SPI */
+//    reg = <0>; /* ignored, but necessary for SPI bindings */
+//    spi-max-frequency = <4000000>;
+//
+//    /* WS2812 */
+//    chain-length = <10>; /* number of LEDs */
+//    spi-one-frame = <0x70>;
+//    spi-zero-frame = <0x40>;
+//    color-mapping = <LED_COLOR_ID_GREEN
+//                          LED_COLOR_ID_RED
+//                          LED_COLOR_ID_BLUE>;
+//  };
+//};
+//
+/// {
+//  chosen {
+//    zmk,underglow = &led_strip;
+//  };
+//};
 
-  led_strip: ws2812@0 {
-    compatible = "worldsemi,ws2812-spi";
-    label = "WS2812";
-
-    /* SPI */
-    reg = <0>; /* ignored, but necessary for SPI bindings */
-    spi-max-frequency = <4000000>;
-
-    /* WS2812 */
-    chain-length = <10>; /* number of LEDs */
-    spi-one-frame = <0x70>;
-    spi-zero-frame = <0x40>;
-    color-mapping = <LED_COLOR_ID_GREEN
-                          LED_COLOR_ID_RED
-                          LED_COLOR_ID_BLUE>;
+/ {
+/*
+  hm: homerow_mods {
+    compatible = "zmk,behavior-hold-tap";
+    label = "HOMEROW_MODS";
+    #binding-cells = <2>;
+    tapping_term_ms = <300>;
+    flavor = "tap-preferred";
+    bindings = <&kp>, <&kp>;
   };
-};
-
-/ {
-	chosen {
-		zmk,underglow = &led_strip;
-	};
-};
-
-/ {
-    hm: homerow_mods {
-        compatible = "zmk,behavior-hold-tap";
-        label = "HOMEROW_MODS";
-        #binding-cells = <2>;
-        tapping_term_ms = <300>;
-        flavor = "tap-preferred";
-        bindings = <&kp>, <&kp>;
+  combos {
+    compatible = "zmk,combos";
+    combo_del {
+      timeout-ms = <30>;
+      key-positions = <7 8>;
+      bindings = <&kp DEL>;
+      layers = <0 1 2>;
     };
-        combos {
-        compatible = "zmk,combos";
-        combo_del {
-          timeout-ms = <30>;
-          key-positions = <7 8>;
-          bindings = <&kp DEL>;
-          layers = <0 1 2>;
-         };
-        combo_bspc {
-            timeout-ms = <30>;
-            key-positions = <8 9>;
-            bindings = <&kp BKSP>;
-            layers = <0 1 2>;
-        };
-        combo_tab {
-            timeout-ms = <30>;
-            key-positions = <10 11>;
-            bindings = <&kp TAB>;
-            layers = <0 1 2>;
-        };
-        combo_esc {
-            timeout-ms = <30>;
-            key-positions = <0 1>;
-            bindings = <&kp ESC>;
-            layers = <0 1 2>;
-        };
-        combo_apos {
-            timeout-ms = <30>;
-            key-positions = <25 18>;
-            bindings = <&kp APOS>;
-            layers = <0>;
-        };
-        combo_left {
-            timeout-ms = <30>;
-            key-positions = <14 15>;
-            bindings = <&kp LEFT>;
-            layers = <0>;
-        };        
-        combo_down {
-            timeout-ms = <30>;
-            key-positions = <15 16>;
-            bindings = <&kp DOWN>;
-            layers = <0>;
-        };
-        combo_up {
-            timeout-ms = <30>;
-            key-positions = <16 17>;
-            bindings = <&kp UP>;
-            layers = <0>;
-        };
-        combo_right {
-            timeout-ms = <30>;
-            key-positions = <17 18>;
-            bindings = <&kp RIGHT>;
-            layers = <0>;
-        };
-        combo_lgui {
-            timeout-ms = <30>;
-            key-positions = <19 20>;
-            bindings = <&kp LGUI>;
-            layers = <0>;
-        };
-        combo_return {
-            timeout-ms = <30>;
-            key-positions = <24 25>;
-            bindings = <&kp RET>;
-            layers = <0 1 2>;
-        };
-        combo_two_a {
-            timeout-ms = <30>;
-            key-positions = <0 9>;
-            bindings = <&mo 2>;
-            layers = <0>;
-        };
-        combo_two_b {
-            timeout-ms = <30>;
-            key-positions = <10 18>;
-            bindings = <&mo 2>;
-            layers = <0>;
-        };
+    combo_bspc {
+      timeout-ms = <30>;
+      key-positions = <8 9>;
+      bindings = <&kp BKSP>;
+      layers = <0 1 2>;
     };
-
-
-    keymap {
-        compatible = "zmk,keymap";
-        default_layer {
-            bindings = <
-                &hm LSHFT Q &kp W &kp E &kp R &kp T &kp Y &kp U &kp I &kp O &hm RSHFT P
-                &hm LCTRL A &kp S &kp D &kp F &kp G &kp H &kp J &kp K &hm RCTRL L
-                &hm LGUI Z  &kp X &kp C &kp V &kp B &kp N &hm LGUI M
-                                              &lt 1 SPACE
-            >;
-        };
-        n_layer {
-            bindings = <
-                &kp N1  &kp N2  &kp N3 &kp N4  &kp N5  &kp N6  &kp N7 &kp N8 &kp N9 &kp N0
-                &kp F1  &kp F2  &kp F3 &kp F4  &kp F5  &kp F6  &trans &trans &rgb_ug RGB_COLOR_HSB(128,100,100)
-                &kp F7  &kp F8  &kp F9 &kp F10 &kp F11 &kp F12 &rgb_ug RGB_TOG
-                                               &trans
-            >;
-        };
-        s_layer {
-            bindings = <
-                &kp DQT   &kp UNDER  &kp LBKT &kp RBKT  &kp CARET &kp EXCL  &kp LT   &kp GT   &kp EQUAL &kp AMPS
-                &kp MINUS &kp LBRC   &kp RBRC &kp STAR  &kp FSLH  &kp LPAR  &kp RPAR &kp APOS &kp COLON
-                &kp HASH  &kp DOLLAR &kp PIPE &kp GRAVE &kp PLUS  &kp PRCNT &kp AT
-                                                        &trans
-            >;
-        };
-
+    combo_tab {
+      timeout-ms = <30>;
+      key-positions = <10 11>;
+      bindings = <&kp TAB>;
+      layers = <0 1 2>;
     };
+    combo_esc {
+      timeout-ms = <30>;
+      key-positions = <0 1>;
+      bindings = <&kp ESC>;
+      layers = <0 1 2>;
+    };
+    combo_apos {
+      timeout-ms = <30>;
+      key-positions = <25 18>;
+      bindings = <&kp APOS>;
+      layers = <0>;
+    };
+    combo_left {
+      timeout-ms = <30>;
+      key-positions = <14 15>;
+      bindings = <&kp LEFT>;
+      layers = <0>;
+    };        
+    combo_down {
+      timeout-ms = <30>;
+      key-positions = <15 16>;
+      bindings = <&kp DOWN>;
+      layers = <0>;
+    };
+    combo_up {
+      timeout-ms = <30>;
+      key-positions = <16 17>;
+      bindings = <&kp UP>;
+      layers = <0>;
+    };
+    combo_right {
+      timeout-ms = <30>;
+      key-positions = <17 18>;
+      bindings = <&kp RIGHT>;
+      layers = <0>;
+    };
+    combo_lgui {
+      timeout-ms = <30>;
+      key-positions = <19 20>;
+      bindings = <&kp LGUI>;
+      layers = <0>;
+    };
+    combo_return {
+      timeout-ms = <30>;
+      key-positions = <24 25>;
+      bindings = <&kp RET>;
+      layers = <0 1 2>;
+    };
+    combo_two_a {
+      timeout-ms = <30>;
+      key-positions = <0 9>;
+      bindings = <&mo 2>;
+      layers = <0>;
+    };
+    combo_two_b {
+      timeout-ms = <30>;
+      key-positions = <10 18>;
+      bindings = <&mo 2>;
+      layers = <0>;
+    };
+  };
+*/
+
+  keymap {
+    compatible = "zmk,keymap";
+    default_layer {
+      bindings = <
+        &hm LSHFT Q &kp W &kp E &kp R &kp T &kp Y &kp U &kp I &kp O &hm RSHFT P
+        &hm LCTRL A &kp S &kp D &kp F &kp G &kp H &kp J &kp K &hm RCTRL L
+        &hm LGUI Z  &kp X &kp C &kp V &kp B &kp N &hm LGUI M
+        &lt 1 SPACE
+        >;
+    };
+    n_layer {
+      bindings = <
+        &kp N1  &kp N2  &kp N3 &kp N4  &kp N5  &kp N6  &kp N7 &kp N8 &kp N9 &kp N0
+        &kp F1  &kp F2  &kp F3 &kp F4  &kp F5  &kp F6  &trans &trans &rgb_ug RGB_COLOR_HSB(128,100,100)
+        &kp F7  &kp F8  &kp F9 &kp F10 &kp F11 &kp F12 &rgb_ug RGB_TOG
+        &trans
+        >;
+    };
+    s_layer {
+      bindings = <
+        &kp DQT   &kp UNDER  &kp LBKT &kp RBKT  &kp CARET &kp EXCL  &kp LT   &kp GT   &kp EQUAL &kp AMPS
+        &kp MINUS &kp LBRC   &kp RBRC &kp STAR  &kp FSLH  &kp LPAR  &kp RPAR &kp APOS &kp COLON
+        &kp HASH  &kp DOLLAR &kp PIPE &kp GRAVE &kp PLUS  &kp PRCNT &kp AT
+        &trans
+        >;
+    };
+  };
 };
