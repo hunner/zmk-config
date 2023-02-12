@@ -17,4 +17,5 @@ include:
     shield: alpha
   - board: seeeduino_xiao_ble
     shield: hummingbird
-#  - board: atreus
+  - board: nice_nano_v2
+    shield: pain27

@@ -1,0 +1,7 @@
+file_format: "1"
+id: pain27
+name: pain27
+type: shield
+requires:
+  - pro_micro
+

@@ -1,0 +1,6 @@
+if SHIELD_pain27
+
+config ZMK_KEYBOARD_NAME
+    default "Pain27"
+	
+endif # BOARD_pain27
