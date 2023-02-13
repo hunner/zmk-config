@@ -8,7 +8,7 @@
 &spi1 {
   compatible = "nordic,nrf-spim";
   status = "okay";
-  mosi-pin = <2>;
+  mosi-pin = <17>; // P0.17
   // Unused pins, needed for SPI definition, but not used by the ws2812 driver itself.
   sck-pin = <13>;
   miso-pin = <12>;
