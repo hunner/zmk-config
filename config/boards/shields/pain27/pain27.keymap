@@ -55,9 +55,9 @@ ZMK_LAYER(helm_layer,
 )
 
 ZMK_LAYER(1,
-    &kp ESC   &kp K_MUTE &kp K_VOL_DN &kp K_VOL_UP &kp K_PP &kp HOME &kp PGDN &kp PGUP &kp END  &kp BSPC
-    &kp TAB   &rgb_ug RGB_TOG  &rgb_ug RGB_BRD  &rgb_ug RGB_BRI ___  &kp LEFT &kp DOWN &kp UP   &kp RIGHT
-    &kp LCTRL &kp LALT ___      &mo 3    &kp RGUI &kp RALT &kp RCTRL
+    &kp ESC   &ext_power EP_ON &ext_power EP_OFF  &kp K_VOL_DN    &kp K_VOL_UP &kp HOME &kp PGDN &kp PGUP &kp END  &kp BSPC
+    &kp TAB   &rgb_ug RGB_TOG  &rgb_ug RGB_BRD    &rgb_ug RGB_BRI ___          &kp LEFT &kp DOWN &kp UP   &kp RIGHT
+    &kp LCTRL &kp LALT ___     &mo 3              &kp RGUI        &kp RALT     &kp RCTRL
     &kp LSHFT
 )
 
