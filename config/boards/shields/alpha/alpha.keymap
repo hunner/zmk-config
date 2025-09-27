@@ -1,4 +1,4 @@
-#include "../../../../zmk-nodefree-config/keypos_def/keypos_28keys.h"
+#include "./28.h"
 #include "../../../base.keymap"
 
 ZMK_LAYER(helm_layer,

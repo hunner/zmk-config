@@ -1,9 +1,12 @@
 #include <behaviors.dtsi>
+#include <behaviors/num_word.dtsi> // Requires zmk-auto-layer module.
+#include <behaviors/unicode.dtsi> // Requires zmk-unicode module.
+#include <zmk-helpers/helper.h> // Requires zmk-helpers module.
 #include <dt-bindings/zmk/keys.h>
 
-#include "../zmk-nodefree-config/helper.h"
-#include "../zmk-nodefree-config/international_chars/greek.dtsi"
-#include "../zmk-nodefree-config/international_chars/german.dtsi"
+#include "zmk-helpers/helper.h"
+#include "zmk-helpers/unicode-chars/greek.dtsi"
+#include "zmk-helpers/unicode-chars/german.dtsi"
 
 #define HELM 0
 #define QWERTY 1
@@ -16,10 +19,11 @@
 
 #include "mouse.dtsi"
 #include "combos.dtsi"
-#include "xtr_defaults.h"
+#include "leader.dtsi"
 #include "taipo.dtsi"
+#include "xtr_defaults.h"
 
-ZMK_CONDITIONAL_LAYER(PORT STARBOARD, AFT)
+ZMK_CONDITIONAL_LAYER(aft, PORT STARBOARD, AFT)
 
 /* Navigation keys and misc shortcuts */
 
@@ -93,7 +97,7 @@ ZMK_BEHAVIOR(hml, hold_tap,  // left-hand HRMs
     flavor = "balanced";
     tapping-term-ms = <280>;
     quick-tap-ms = <QUICK_TAP_MS>;
-    global-quick-tap-ms = <150>;        // requires PR #1387
+    require-prior-idle-ms = <150>;        // requires PR #1387
     bindings = <&kp>, <&kp>;
     hold-trigger-key-positions = <KEYS_R THUMBS>;
     hold-trigger-on-release;            // requires PR #1423
@@ -103,7 +107,7 @@ ZMK_BEHAVIOR(hmr, hold_tap,  // right-hand HRMs
     flavor = "balanced";
     tapping-term-ms = <280>;
     quick-tap-ms = <QUICK_TAP_MS>;
-    global-quick-tap-ms = <150>;        // requires PR #1387
+    require-prior-idle-ms = <150>;        // requires PR #1387
     bindings = <&kp>, <&kp>;
     hold-trigger-key-positions = <KEYS_L THUMBS>;
     hold-trigger-on-release;            // requires PR #1423
@@ -275,9 +279,9 @@ ZMK_BEHAVIOR(comma_morph, mod_morph,
 //                                                                        ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
 #define RIGHT_AFT_UPPER_ROW________________________________________________ &kp F6        &kp F7        &kp F8        &kp F9        &kp F10
 //                                                                        ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-#define RIGHT_AFT_MIDDLE_ROW_______________________________________________ &mwh SCROLL_LEFT &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT
+#define RIGHT_AFT_MIDDLE_ROW_______________________________________________ &msc SCRL_LEFT &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT
 //                                                                        ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────╯
-#define RIGHT_AFT_LOWER_ROW____________________                                           &mwh SCROLL_DOWN &mwh SCROLL_UP &mwh SCROLL_RIGHT
+#define RIGHT_AFT_LOWER_ROW____________________                                           &msc SCRL_DOWN &msc SCRL_UP &msc SCRL_RIGHT
 //                                            ^                                         ╰─────────────┴─────────────┴─────────────╯
 
 
@@ -341,9 +345,9 @@ ZMK_LAYER(aft_layer,
     // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
         &kp F1        &kp F2        &kp F3        &kp F4        &kp F5            &kp F6        &kp F7        &kp F8        &kp F9        &kp F10
     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-        &kp F11       &kp F12       &kp INSERT    &kp DELETE    PASTE             &mwh SCROLL_LEFT &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT
+        &kp F11       &kp F12       &kp INSERT    &kp DELETE    PASTE             &msc SCROLL_LEFT &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT
     // ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────╯
-                      &mkp LCLK     &mkp RCLK     &mkp MCLK     L_THUMB           R_THUMB       &mwh SCROLL_DOWN &mwh SCROLL_UP &mwh SCROLL_RIGHT
+                      &mkp LCLK     &mkp RCLK     &mkp MCLK     L_THUMB           R_THUMB       &msc SCROLL_DOWN &msc SCROLL_UP &msc SCROLL_RIGHT
     //               ╰─────────────┴─────────────┼─────────────┼─────────────╯   ╰─────────────┴─────────────┼─────────────┼─────────────╯
 )
 

@@ -6,9 +6,9 @@
   ╰───╮ LB3 LB2 LB1 LH0 │ │ RH0 RB1 RB2 RB3 ╭───╯
       ╰─────────────────╯ ╰─────────────────╯ */
 
-// use global-quick-tap-ms for combos (requires PR 1387)
+// use require-prior-idle-ms for combos (requires PR 1387)
 #undef COMBO_HOOK
-#define COMBO_HOOK global-quick-tap-ms = <75>;
+#define COMBO_HOOK require-prior-idle-ms = <75>;
 
 #define COMBO_TERM_FAST 30
 #define COMBO_TERM_SLOW 45
@@ -18,6 +18,8 @@ ZMK_COMBO(tab,   &kp TAB,       LT2 LT1,     HELM APTMAK, COMBO_TERM_FAST)
 ZMK_COMBO(enter, &kp ENTER,     RT1 RT2,     HELM APTMAK, COMBO_TERM_FAST)
 ZMK_COMBO(bspc,  &kp BSPC,      RT2 RT3,     HELM APTMAK, COMBO_TERM_FAST)
 ZMK_COMBO(spc,   &kp SPACE,     RB2 RB3,     HELM APTMAK, COMBO_TERM_FAST)
+
+ZMK_COMBO(ldr,   &leader,       LT0 RT0,     HELM APTMAK, COMBO_TERM_FAST)
 
 ZMK_COMBO(lclk,  &mkp LCLK,     LB3 LB2,     HELM, COMBO_TERM_FAST)
 ZMK_COMBO(rclk,  &mkp RCLK,     LB2 LB1,     HELM, COMBO_TERM_FAST)

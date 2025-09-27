@@ -350,8 +350,8 @@ ZMK_COMBO(Rdel  , &kp DEL      , RT1 RT2 RT3 RB1, TAIPO, COMBO_TERM_FAST)
 ZMK_COMBO(Lralt , &kp RALT     , LM1 LM2 LM3 LH0, TAIPO, COMBO_TERM_FAST)
 ZMK_COMBO(Rralt , &kp RALT     , RM1 RM2 RM3 RH0, TAIPO, COMBO_TERM_FAST)
 // COMB(CM92,  KC_LEAD , KC_I, KC_N, KC_S, KC_BSPC)
-//ZMK_COMBO(Llead , &kp LEAD     , LT1 LT3 LT2 LH0, TAIPO, COMBO_TERM_FAST)
-//ZMK_COMBO(Rlead , &kp LEAD     , RT1 RT3 RT2 RH0, TAIPO, COMBO_TERM_FAST)
+ZMK_COMBO(Llead , &tlead       , LT1 LT3 LT2 LH0, TAIPO, COMBO_TERM_FAST)
+ZMK_COMBO(Rlead , &tlead       , RT1 RT3 RT2 RH0, TAIPO, COMBO_TERM_FAST)
 
 
 // These need to be sticky, but clear with repeat presses
@@ -399,3 +399,39 @@ ZMK_COMBO(Rpgdn , &kp PG_DN    , RM1 RT1 RH0, TAIPO, COMBO_TERM_FAST)
 
 // Missing sequences after leader key for F-keys.
 // Maybe I can add https://github.com/zmkfirmware/zmk/pull/1380 to my tree
+// leader 1-9: F1-F9
+// leader 0 0-9: F10-F19
+#define ZMK_TAIPO_LEADER_SEQUENCE(name, leader_bindings, leader_sequence) \
+    / { \
+        behaviors { \
+            tlead: tlead { \
+                compatible = "zmk,behavior-leader-key"; \
+                #binding-cells = <0>; \
+                ignore-keys = <LSHFT RSHFT>; \
+                leader_sequence_ ## name { \
+                    bindings = <leader_bindings>; \
+                    sequence = <leader_sequence>; \
+                }; \
+            }; \
+        }; \
+    };
+
+ZMK_TAIPO_LEADER_SEQUENCE(f1,  &kp F1,  N1)
+ZMK_TAIPO_LEADER_SEQUENCE(f2,  &kp F2,  N2)
+ZMK_TAIPO_LEADER_SEQUENCE(f3,  &kp F3,  N3)
+ZMK_TAIPO_LEADER_SEQUENCE(f4,  &kp F4,  N4)
+ZMK_TAIPO_LEADER_SEQUENCE(f5,  &kp F5,  N5)
+ZMK_TAIPO_LEADER_SEQUENCE(f6,  &kp F6,  N6)
+ZMK_TAIPO_LEADER_SEQUENCE(f7,  &kp F7,  N7)
+ZMK_TAIPO_LEADER_SEQUENCE(f8,  &kp F8,  N8)
+ZMK_TAIPO_LEADER_SEQUENCE(f9,  &kp F9,  N9)
+ZMK_TAIPO_LEADER_SEQUENCE(f10, &kp F10, N0 N0)
+ZMK_TAIPO_LEADER_SEQUENCE(f11, &kp F11, N0 N1)
+ZMK_TAIPO_LEADER_SEQUENCE(f12, &kp F12, N0 N2)
+ZMK_TAIPO_LEADER_SEQUENCE(f13, &kp F13, N0 N3)
+ZMK_TAIPO_LEADER_SEQUENCE(f14, &kp F14, N0 N4)
+ZMK_TAIPO_LEADER_SEQUENCE(f15, &kp F15, N0 N5)
+ZMK_TAIPO_LEADER_SEQUENCE(f16, &kp F16, N0 N6)
+ZMK_TAIPO_LEADER_SEQUENCE(f17, &kp F17, N0 N7)
+ZMK_TAIPO_LEADER_SEQUENCE(f18, &kp F18, N0 N8)
+ZMK_TAIPO_LEADER_SEQUENCE(f19, &kp F19, N0 N9)
