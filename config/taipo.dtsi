@@ -219,8 +219,8 @@ ZMK_COMBO(Rz    , &kp Z        , RT2 RT4, TAIPO, COMBO_TERM_FAST)
 ZMK_COMBO(Lcapc , &kp LS(C)    , LM1 LM3 ITL, TAIPO, COMBO_TERM_FAST)
 ZMK_COMBO(Rcapc , &kp LS(C)    , RM1 RM3 ITR, TAIPO, COMBO_TERM_FAST)
 // COMB(CM46,  S(KC_Q) , KC_T, KC_A, KC_SPC)
-ZMK_COMBO(Lcapq , &kp LS(Q)    , LM1 LM3 ITL, TAIPO, COMBO_TERM_FAST)
-ZMK_COMBO(Rcapq , &kp LS(Q)    , RM1 RM3 ITR, TAIPO, COMBO_TERM_FAST)
+ZMK_COMBO(Lcapq , &kp LS(Q)    , LM2 LM4 ITL, TAIPO, COMBO_TERM_FAST)
+ZMK_COMBO(Rcapq , &kp LS(Q)    , RM2 RM4 ITR, TAIPO, COMBO_TERM_FAST)
 // COMB(CM47,  S(KC_F) , KC_I, KC_S, KC_SPC)
 ZMK_COMBO(Lcapf , &kp LS(F)    , LT1 LT3 ITL, TAIPO, COMBO_TERM_FAST)
 ZMK_COMBO(Rcapf , &kp LS(F)    , RT1 RT3 ITR, TAIPO, COMBO_TERM_FAST)
@@ -466,3 +466,14 @@ ZMK_TAIPO_LEADER_SEQUENCE(f16, &kp F16, N0 N6)
 ZMK_TAIPO_LEADER_SEQUENCE(f17, &kp F17, N0 N7)
 ZMK_TAIPO_LEADER_SEQUENCE(f18, &kp F18, N0 N8)
 ZMK_TAIPO_LEADER_SEQUENCE(f19, &kp F19, N0 N9)
+
+// My custom combos ------------------------------------------------------------
+
+// Add shift-insert to the tab combo plus both thumbs for paste
+#define PASTE &kp LS(INSERT)
+ZMK_COMBO(Lpaste, PASTE, LT1 LT2 LT3 ITL OTL, TAIPO, COMBO_TERM_FAST)
+ZMK_COMBO(Rpaste, PASTE, RT1 RT2 RT3 ITR OTR, TAIPO, COMBO_TERM_FAST)
+
+// Add key repeat to both thumbs
+ZMK_COMBO(Lrepeat, &key_repeat, ITL OTL, TAIPO, COMBO_TERM_FAST)
+ZMK_COMBO(Rrepeat, &key_repeat, ITR OTR, TAIPO, COMBO_TERM_FAST)

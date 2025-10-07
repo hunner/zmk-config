@@ -26,6 +26,8 @@ manifest:
       url-base: https://github.com/urob
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
+    - name: hunner
+      url-base: git@github.com:hunner
 
   projects:
     - name: zmk
@@ -45,6 +47,11 @@ manifest:
       path: modules/zmk/tri-state
     - name: zmk-unicode
       path: modules/zmk/unicode
+    - name: zmk-fw16
+      remote: hunner
+      revision: main
+      path: modules/zmk/fw16
+
 
     # Only source necessary Zephyr modules. Remove this entire section to
     # restore the default (needed for less common hardware).

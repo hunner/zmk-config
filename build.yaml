@@ -19,3 +19,5 @@ include:
     shield: hummingbird
   - board: nice_nano_v2
     shield: pain27
+  - board: fw16
+    shield: fw16_ansi
