@@ -1,4 +1,4 @@
-#include "./28.h"
+#include "../../../key-labels/28.h"
 #include "../../../base.keymap"
 
 ZMK_LAYER(helm_layer,
