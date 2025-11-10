@@ -1,4 +1,4 @@
-#include <dt-bindings/zmk/mouse.h>
+#include <dt-bindings/zmk/pointing.h>
 
 &mmv {
   time-to-max-speed-ms = <80>;

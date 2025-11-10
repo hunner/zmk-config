@@ -62,18 +62,38 @@
 #undef TAIPO_OUTER
 #include "../../../taipo.dtsi"
 
+#include "../../../mouse.dtsi"
+
+#define MOUSE 3
+#define BLUETOOTH 4
+
 // Base TAIPO layer - the 8 base keys
 ZMK_LAYER(taipo,
   &kp R &kp S &kp N &kp I
   &kp A &kp O &kp T &kp E
 )
+ZMK_COMBO(tog_mouse, &tog MOUSE, LT1 LM2 LT3, TAIPO MOUSE, COMBO_TERM_FAST)
+ZMK_COMBO(tog_bluetooth, &tog BLUETOOTH, LT1 LM1 LT4 LM4, TAIPO BLUETOOTH, COMBO_TERM_FAST)
 
-ZMK_LAYER(taipo_inner,
+ZMK_LAYER(inner,
   &trans &trans &trans &trans
   &trans &trans &trans &trans
 )
 
-ZMK_LAYER(taipo_outer,
+ZMK_LAYER(outer,
   &trans &trans &trans &trans
   &trans &trans &trans &trans
+)
+
+ZMK_LAYER(mouse,
+  &msc SCRL_UP   &mkp RCLK      &mmv MOVE_UP   &mkp LCLK
+  &msc SCRL_DOWN &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT
+)
+ZMK_COMBO(scroll_left , &msc SCRL_LEFT , LT3 LT4, MOUSE, COMBO_TERM_FAST)
+ZMK_COMBO(right_click , &msc SCRL_RIGHT, LM3 LM4, MOUSE, COMBO_TERM_FAST)
+ZMK_COMBO(middle_click, &mkp MCLK      , LT1 LT3, MOUSE, COMBO_TERM_FAST)
+
+ZMK_LAYER(bluetooth,
+  &bt BT_CLR &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0
+  &none      &bt BT_SEL 5 &bt BT_SEL 4 &bt BT_SEL 3
 )
