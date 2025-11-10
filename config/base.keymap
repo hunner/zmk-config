@@ -15,8 +15,10 @@
 #define STARBOARD 4
 #define AFT 5
 #define TAIPO 6
-#define MOUSE 7
-#define STENO 8
+#define TAIPO_INNER 7
+#define TAIPO_OUTER 8
+#define MOUSE 9
+#define STENO 10
 
 #include "mouse.dtsi"
 #include "combos.dtsi"
@@ -299,7 +301,7 @@ ZMK_BEHAVIOR(comma_morph, mod_morph,
 
 #define MOUSE_SCROLL_________________________________________ &msc SCRL_LEFT &msc SCRL_DOWN &msc SCRL_UP &msc SCRL_RIGHT
 #define MOUSE_MOVE___________________________________________ &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT
-#define MOUSE_BUTTONS__________________________               &mkp LCLK      &mkp MCLK      &mkp LCLK
+#define MOUSE_BUTTONS__________________________               &mkp LCLK      &mkp MCLK      &mkp RCLK
 //                                            ^
 
 /*

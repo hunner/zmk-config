@@ -21,3 +21,5 @@ include:
     shield: pain27
   - board: fw16
     shield: fw16_ansi
+  - board: nice_nano_v2
+    shield: the_paintbrush_left
