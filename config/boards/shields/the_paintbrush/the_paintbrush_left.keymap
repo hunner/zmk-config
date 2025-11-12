@@ -73,7 +73,7 @@ ZMK_LAYER(taipo,
   &kp A &kp O &kp T &kp E
 )
 ZMK_COMBO(tog_mouse, &tog MOUSE, LT1 LM2 LT3, TAIPO MOUSE, COMBO_TERM_FAST)
-ZMK_COMBO(tog_bluetooth, &tog BLUETOOTH, LT1 LM1 LT4 LM4, TAIPO BLUETOOTH, COMBO_TERM_FAST)
+ZMK_COMBO(tog_bluetooth, &tog BLUETOOTH, LT1 LM2 LM3 LT4, TAIPO BLUETOOTH, COMBO_TERM_FAST)
 
 ZMK_LAYER(inner,
   &trans &trans &trans &trans

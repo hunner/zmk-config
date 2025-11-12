@@ -81,13 +81,23 @@
 #define MAP_L_2(x, y) PREFIX_L(x) PREFIX_L(y)
 #define MAP_L_3(x, y, z) PREFIX_L(x) PREFIX_L(y) PREFIX_L(z)
 #define MAP_L_4(x, y, z, w) PREFIX_L(x) PREFIX_L(y) PREFIX_L(z) PREFIX_L(w)
+#define MAP_L_5(x, y, z, w, v) PREFIX_L(x) PREFIX_L(y) PREFIX_L(z) PREFIX_L(w) PREFIX_L(v)
+#define MAP_L_6(x, y, z, w, v, u) PREFIX_L(x) PREFIX_L(y) PREFIX_L(z) PREFIX_L(w) PREFIX_L(v) PREFIX_L(u)
+#define MAP_L_7(x, y, z, w, v, u, t) PREFIX_L(x) PREFIX_L(y) PREFIX_L(z) PREFIX_L(w) PREFIX_L(v) PREFIX_L(u) PREFIX_L(t)
+#define MAP_L_8(x, y, z, w, v, u, t, s) PREFIX_L(x) PREFIX_L(y) PREFIX_L(z) PREFIX_L(w) PREFIX_L(v) PREFIX_L(u) PREFIX_L(t) PREFIX_L(s)
+
 #define MAP_R_1(x) PREFIX_R(x)
 #define MAP_R_2(x, y) PREFIX_R(x) PREFIX_R(y)
 #define MAP_R_3(x, y, z) PREFIX_R(x) PREFIX_R(y) PREFIX_R(z)
 #define MAP_R_4(x, y, z, w) PREFIX_R(x) PREFIX_R(y) PREFIX_R(z) PREFIX_R(w)
-#define GET_KEYS(_1,_2,_3,_4,NAME,...) NAME
-#define MAP_L(...) GET_KEYS(__VA_ARGS__, MAP_L_4, MAP_L_3, MAP_L_2, MAP_L_1)(__VA_ARGS__)
-#define MAP_R(...) GET_KEYS(__VA_ARGS__, MAP_R_4, MAP_R_3, MAP_R_2, MAP_R_1)(__VA_ARGS__)
+#define MAP_R_5(x, y, z, w, v) PREFIX_R(x) PREFIX_R(y) PREFIX_R(z) PREFIX_R(w) PREFIX_R(v)
+#define MAP_R_6(x, y, z, w, v, u) PREFIX_R(x) PREFIX_R(y) PREFIX_R(z) PREFIX_R(w) PREFIX_R(v) PREFIX_R(u)
+#define MAP_R_7(x, y, z, w, v, u, t) PREFIX_R(x) PREFIX_R(y) PREFIX_R(z) PREFIX_R(w) PREFIX_R(v) PREFIX_R(u) PREFIX_R(t)
+#define MAP_R_8(x, y, z, w, v, u, t, s) PREFIX_R(x) PREFIX_R(y) PREFIX_R(z) PREFIX_R(w) PREFIX_R(v) PREFIX_R(u) PREFIX_R(t) PREFIX_R(s)
+
+#define GET_KEYS(_1,_2,_3,_4,_5,_6,_7,_8,NAME,...) NAME
+#define MAP_L(...) GET_KEYS(__VA_ARGS__, MAP_L_8, MAP_L_7, MAP_L_6, MAP_L_5, MAP_L_4, MAP_L_3, MAP_L_2, MAP_L_1)(__VA_ARGS__)
+#define MAP_R(...) GET_KEYS(__VA_ARGS__, MAP_R_8, MAP_R_7, MAP_R_6, MAP_R_5, MAP_R_4, MAP_R_3, MAP_R_2, MAP_R_1)(__VA_ARGS__)
 
 // Macros to expand into left/right combos and virtual thumbs
 #define ZMK_COMBO_TAIPO(name, kp, ...) \
@@ -251,8 +261,21 @@ ZMK_COMBO_TAIPO_OT(lead , &tlead    , T1, T2, T3)
 // These need to be sticky, but clear with repeat presses
 ZMK_COMBO_TAIPO(gui     , &sk LGUI    , M4, T4)
 ZMK_COMBO_TAIPO(alt     , &sk LALT    , M3, T3)
-ZMK_COMBO_TAIPO(ctl     , &sk LCTL    , M2, T2)
+ZMK_COMBO_TAIPO(ctl     , &sk LCTRL   , M2, T2)
 ZMK_COMBO_TAIPO(sft     , &sk LSHFT   , M1, T1)
+
+// Also enumerate all possible GACS combinations
+ZMK_COMBO_TAIPO(ga      , &sk LG(LALT)         , M3, T3, M4, T4)
+ZMK_COMBO_TAIPO(gc      , &sk LG(LCTRL)        , M2, T2, M4, T4)
+ZMK_COMBO_TAIPO(gs      , &sk LG(LSHFT)        , M1, T1, M4, T4)
+ZMK_COMBO_TAIPO(ac      , &sk LA(LCTRL)        , M2, T2, M3, T3)
+ZMK_COMBO_TAIPO(as      , &sk LA(LSHFT)        , M1, T1, M3, T3)
+ZMK_COMBO_TAIPO(cs      , &sk LC(LSHFT)        , M1, T1, M2, T2)
+ZMK_COMBO_TAIPO(gac     , &sk LG(LA(LCTRL))    , M2, T2, M3, T3, M4, T4)
+ZMK_COMBO_TAIPO(gas     , &sk LG(LA(LSHFT))    , M1, T1, M3, T3, M4, T4)
+ZMK_COMBO_TAIPO(gcs     , &sk LG(LC(LSHFT))    , M1, T1, M2, T2, M4, T4)
+ZMK_COMBO_TAIPO(acs     , &sk LA(LC(LSHFT))    , M1, T1, M2, T2, M3, T3)
+ZMK_COMBO_TAIPO(gacs    , &sk LG(LA(LC(LSHFT))), M1, T1, M2, T2, M3, T3, M4, T4)
 
 ZMK_COMBO_TAIPO_IT(right, &kp RIGHT   , M4, T4)
 ZMK_COMBO_TAIPO_IT(up   , &kp UP      , M3, T3)
