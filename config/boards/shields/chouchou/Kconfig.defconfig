@@ -1,0 +1,6 @@
+if SHIELD_CHOUCHOU
+
+config ZMK_KEYBOARD_NAME
+    default "Chouchou"
+
+endif

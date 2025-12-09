@@ -238,7 +238,7 @@ ZMK_COMBO_TAIPO(semi    , &kp SEMI , M3, T4)
 ZMK_COMBO_TAIPO(qmark   , &kp QMARK, T1, M2)
 ZMK_COMBO_TAIPO(comma   , &kp COMMA, M1, T2)
 
-ZMK_COMBO_TAIPO_IT(dqt  , &kp SQT  , T3, M4)
+ZMK_COMBO_TAIPO_IT(dqt  , &kp DQT  , T3, M4)
 ZMK_COMBO_TAIPO_IT(colon, &kp COLON, M3, T4)
 ZMK_COMBO_TAIPO_IT(excl , &kp EXCL , T1, M2)
 ZMK_COMBO_TAIPO_IT(dot  , &kp DOT  , M1, T2)
@@ -255,7 +255,9 @@ ZMK_COMBO_TAIPO(tab     , &kp TAB   , T1, T2, T3)
 ZMK_COMBO_TAIPO_IT(esc  , &kp ESC   , M1, M2, M3)
 ZMK_COMBO_TAIPO_IT(del  , &kp DEL   , T1, T2, T3)
 
-ZMK_COMBO_TAIPO_OT(ralt , &kp RALT  , M1, M2, M3)
+// Use shift+insert to paste instead of AltGr
+#define PASTE &kp LS(INSERT)
+ZMK_COMBO_TAIPO_OT(paste, PASTE     , M1, M2, M3)
 ZMK_COMBO_TAIPO_OT(lead , &tlead    , T1, T2, T3)
 
 // These need to be sticky, but clear with repeat presses
@@ -285,11 +287,14 @@ ZMK_COMBO_TAIPO_IT(left , &kp LEFT    , M1, T1)
 // NB: This is a deviation from taipo's official layout; I swapped PgUp/PgDn for Home/End
 // It was Right: PgDn-End-Home-PgUp, but now it's Right: End-PgDn-PgUp-Home
 // so 4-3-2-1 is now 3-4-1-2
-ZMK_COMBO_TAIPO_OT(home  , &kp HOME    , M4, T4)
-ZMK_COMBO_TAIPO_OT(pgup  , &kp PG_UP   , M3, T3)
-ZMK_COMBO_TAIPO_OT(pgdn  , &kp PG_DN   , M2, T2)
-ZMK_COMBO_TAIPO_OT(end   , &kp END     , M1, T1)
-
+// ZMK_COMBO_TAIPO_OT(home  , &kp HOME    , M4, T4)
+// ZMK_COMBO_TAIPO_OT(pgup  , &kp PG_UP   , M3, T3)
+// ZMK_COMBO_TAIPO_OT(pgdn  , &kp PG_DN   , M2, T2)
+// ZMK_COMBO_TAIPO_OT(end   , &kp END     , M1, T1)
+ZMK_COMBO_TAIPO_OT(pgup , &kp PG_UP   , M4, T4)
+ZMK_COMBO_TAIPO_OT(home , &kp HOME    , M3, T3)
+ZMK_COMBO_TAIPO_OT(end  , &kp END     , M2, T2)
+ZMK_COMBO_TAIPO_OT(pgdn , &kp PG_DN   , M1, T1)
 
 // Missing sequences after leader key for F-keys.
 // Maybe I can add https://github.com/zmkfirmware/zmk/pull/1380 to my tree
@@ -333,10 +338,9 @@ ZMK_TAIPO_LEADER_SEQUENCE(f19, &kp F19, N0 N9)
 // My custom combos ------------------------------------------------------------
 
 // Add shift-insert to the tab combo plus both thumbs for paste
-#define PASTE &kp LS(INSERT)
-ZMK_COMBO(Lpaste, PASTE, LT1 LT2 LT3 ITL OTL, TAIPO, COMBO_TERM_FAST)
-ZMK_COMBO(Rpaste, PASTE, RT1 RT2 RT3 ITR OTR, TAIPO, COMBO_TERM_FAST)
+//ZMK_COMBO(Lpaste, PASTE, LT1 LT2 LT3 ITL OTL, TAIPO, COMBO_TERM_FAST)
+//ZMK_COMBO(Rpaste, PASTE, RT1 RT2 RT3 ITR OTR, TAIPO, COMBO_TERM_FAST)
 
 // Add key repeat to both thumbs
-ZMK_COMBO(Lrepeat, &key_repeat, ITL OTL, TAIPO, COMBO_TERM_FAST)
-ZMK_COMBO(Rrepeat, &key_repeat, ITR OTR, TAIPO, COMBO_TERM_FAST)
+//ZMK_COMBO(Lrepeat, &key_repeat, ITL OTL, TAIPO, COMBO_TERM_FAST)
+//ZMK_COMBO(Rrepeat, &key_repeat, ITR OTR, TAIPO, COMBO_TERM_FAST)

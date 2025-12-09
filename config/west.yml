@@ -28,6 +28,8 @@ manifest:
       url-base: https://github.com/zmkfirmware
     - name: hunner
       url-base: git@github.com:hunner
+    - name: nmunnich
+      url-base: https://github.com/nmunnich
 
   projects:
     - name: zmk
@@ -67,6 +69,11 @@ manifest:
           - hal_stm32
           - lvgl
           - tinycrypt
+
+    - name: zmk-component-rp2040-zero
+      remote: nmunnich
+      revision: main
+      clone-depth: 1
 
   self:
     path: config

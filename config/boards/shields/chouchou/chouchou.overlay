@@ -1,0 +1,39 @@
+/ {
+    chosen {
+        zmk,kscan = &kscan0;
+    };
+
+    kscan0: kscan_0 {
+        compatible = "zmk,kscan-gpio-direct";
+        wakeup-source;
+
+        input-gpios
+            // Top row left (LT4 LT3 LT2 LT1)
+            = <&gpio0 26 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 0: GP26
+            , <&gpio0 27 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 1: GP27
+            , <&gpio0 28 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 2: GP28
+            , <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 3: GP29
+            // Top row right (RT1 RT2 RT3 RT4)
+            , <&gpio0  0 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 4: GP0
+            , <&gpio0  1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 5: GP1
+            , <&gpio0  2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 6: GP2
+            , <&gpio0  3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 7: GP3
+            // Middle row left (LM4 LM3 LM2 LM1)
+            , <&gpio0 12 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 8: GP12
+            , <&gpio0 13 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 9: GP13
+            , <&gpio0 14 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 10: GP14
+            , <&gpio0 15 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 11: GP15
+            // Middle row right (RM1 RM2 RM3 RM4)
+            , <&gpio0  4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 12: GP4
+            , <&gpio0  5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 13: GP5
+            , <&gpio0  6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 14: GP6
+            , <&gpio0  7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 15: GP7
+            // Left thumbs (LH0 LB1)
+            , <&gpio0 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 16: GP11
+            , <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 17: GP10
+            // Right thumbs (RB1 RH0)
+            , <&gpio0  9 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 18: GP9
+            , <&gpio0  8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 19: GP8
+            ;
+    };
+};

@@ -1,0 +1,112 @@
+/*
+ * Chouchou - 20-key taipo keyboard
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <zmk-helpers/helper.h>
+
+/*                              20 KEY MATRIX / LAYOUT MAPPING (Chouchou)
+
+  ╭─────────────────╮ ╭─────────────────╮ ╭─────────────────╮ ╭─────────────────╮
+  │  0   1   2   3  │ │  4   5   6   7  │ │ LT4 LT3 LT2 LT1 │ │ RT1 RT2 RT3 RT4 │
+  │  8   9  10  11  │ │ 12  13  14  15  │ │ LM4 LM3 LM2 LM1 │ │ RM1 RM2 RM3 RM4 │
+  ╰───╮ 16  17 ╭────╯ ╰────╮ 18  19 ╭───╯ ╰───╮ LH0 LB1 ╭───╯ ╰───╮ RB1 RH0 ╭───╯
+      ╰────────╯           ╰────────╯         ╰─────────╯         ╰─────────╯ */
+
+// Left hand top row (pinky to index)
+#define LT4  0
+#define LT3  1
+#define LT2  2
+#define LT1  3
+
+// Right hand top row (index to pinky)
+#define RT1  4
+#define RT2  5
+#define RT3  6
+#define RT4  7
+
+// Left hand middle row (pinky to index)
+#define LM4  8
+#define LM3  9
+#define LM2 10
+#define LM1 11
+
+// Right hand middle row (index to pinky)
+#define RM1 12
+#define RM2 13
+#define RM3 14
+#define RM4 15
+
+// Thumbs: inner then outer for left, outer then inner for right
+#define LH0 16  // left inner thumb (GP11)
+#define LB1 17  // left outer thumb (GP10)
+#define RB1 18  // right outer thumb (GP9)
+#define RH0 19  // right inner thumb (GP8)
+
+#undef TAIPO
+#undef TAIPO_INNER
+#undef TAIPO_OUTER
+#include "../../../taipo.dtsi"
+
+#include "../../../mouse.dtsi"
+
+#define MOUSE 3
+#define BLUETOOTH 4
+
+ZMK_LAYER(taipo,
+    // ╭─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────╮
+         &kp R         &kp S         &kp N         &kp I             &kp I         &kp N         &kp S         &kp R
+    // ├─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┤
+         &kp A         &kp O         &kp T         &kp E             &kp E         &kp T         &kp O         &kp A
+    // ╰─────────────┼─────────────┼─────────────┼─────────────╯   ╰─────────────┼─────────────┼─────────────┼─────────────╯
+                       &kp BSPC      &kp SPACE                                     &kp SPACE     &kp BSPC
+    //               ╰─────────────┴─────────────╯                               ╰─────────────┴─────────────╯
+)
+ZMK_COMBO(tog_mouse, &tog MOUSE, LT1 LM2 LT3, TAIPO MOUSE, COMBO_TERM_FAST)
+ZMK_COMBO(tog_bluetooth, &tog BLUETOOTH, LT1 LM2 LM3 LT4, TAIPO BLUETOOTH, COMBO_TERM_FAST)
+
+ZMK_LAYER(inner,
+    // ╭─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────╮
+         &trans        &trans        &trans        &trans            &trans        &trans        &trans        &trans
+    // ├─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┤
+         &trans        &trans        &trans        &trans            &trans        &trans        &trans        &trans
+    // ╰─────────────┼─────────────┼─────────────┼─────────────╯   ╰─────────────┼─────────────┼─────────────┼─────────────╯
+                       &trans        &trans                                        &trans        &trans
+    //               ╰─────────────┴─────────────╯                               ╰─────────────┴─────────────╯
+)
+
+ZMK_LAYER(outer,
+    // ╭─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────╮
+         &trans        &trans        &trans        &trans            &trans        &trans        &trans        &trans
+    // ├─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┤
+         &trans        &trans        &trans        &trans            &trans        &trans        &trans        &trans
+    // ╰─────────────┼─────────────┼─────────────┼─────────────╯   ╰─────────────┼─────────────┼─────────────┼─────────────╯
+                       &trans        &trans                                        &trans        &trans
+    //               ╰─────────────┴─────────────╯                               ╰─────────────┴─────────────╯
+)
+
+ZMK_LAYER(mouse,
+    // ╭─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────╮
+         &msc SCRL_LEFT &msc SCRL_DOWN &msc SCRL_UP &msc SCRL_RIGHT  &msc SCRL_LEFT &msc SCRL_DOWN &msc SCRL_UP &msc SCRL_RIGHT
+    // ├─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┤
+         &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT  &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT
+    // ╰─────────────┼─────────────┼─────────────┼─────────────╯   ╰─────────────┼─────────────┼─────────────┼─────────────╯
+                       &mkp LCLK     &mkp RCLK                                     &mkp LCLK     &mkp RCLK
+    //               ╰─────────────┴─────────────╯                               ╰─────────────┴─────────────╯
+)
+ZMK_COMBO(middle_click_l, &mkp MCLK, LH0 LB1, MOUSE, COMBO_TERM_FAST)
+ZMK_COMBO(middle_click_r, &mkp MCLK, RH0 RB1, MOUSE, COMBO_TERM_FAST)
+
+ZMK_LAYER(bluetooth,
+    // ╭─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────╮
+         &bt BT_CLR    &bt BT_SEL 2  &bt BT_SEL 1  &bt BT_SEL 0      &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_CLR
+    // ├─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┤
+         &none         &bt BT_SEL 5  &bt BT_SEL 4  &bt BT_SEL 3      &bt BT_SEL 3  &bt BT_SEL 4  &bt BT_SEL 5  &none
+    // ╰─────────────┼─────────────┼─────────────┼─────────────╯   ╰─────────────┼─────────────┼─────────────┼─────────────╯
+                       &none         &none                                         &none         &none
+    //               ╰─────────────┴─────────────╯                               ╰─────────────┴─────────────╯
+)
+
+/* vim: set tw=180 ft=c: */

@@ -10,6 +10,7 @@ ZMK_LAYER(helm_layer,
                        LEFT_HELM_LOWER_ROW____________________   L_THUMB           R_THUMB       RIGHT_HELM_LOWER_ROW___________________
     //               ╰─────────────┴─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────┴─────────────╯
 )
+ZMK_COMBO(helm_caps,  &caps_word, LM4 RM4, HELM, COMBO_TERM_SLOW)
 
 ZMK_LAYER(qwerty_layer,
     // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
@@ -96,6 +97,9 @@ ZMK_LAYER(taipo_layer,
                        &to HELM      &mo MOUSE     LEFT_TAIPO_THUMBS________       RIGHT_TAIPO_THUMBS_______   &mo MOUSE     ___
     //               ╰─────────────┴─────────────┼─────────────┼─────────────╯   ╰─────────────┴─────────────┼─────────────┼─────────────╯
 )
+// Add momentary mouse to both thumbs
+ZMK_COMBO(Lmouse, &mo MOUSE, ITL OTL, TAIPO, COMBO_TERM_FAST)
+ZMK_COMBO(Rmouse, &mo MOUSE, ITR OTR, TAIPO, COMBO_TERM_FAST)
 
 ZMK_LAYER(taipo_inner,
     // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
