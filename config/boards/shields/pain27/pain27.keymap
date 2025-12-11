@@ -1,4 +1,4 @@
-#include "../../../../zmk-nodefree-config/keypos_def/keypos_28keys.h"
+#include "../../../key-labels/27.h"
 #include "../../../base.keymap"
 
 #include <dt-bindings/zmk/outputs.h>

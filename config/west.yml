@@ -27,7 +27,7 @@ manifest:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
     - name: hunner
-      url-base: git@github.com:hunner
+      url-base: https://github.com/hunner
     - name: nmunnich
       url-base: https://github.com/nmunnich
 
