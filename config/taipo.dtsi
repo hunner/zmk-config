@@ -27,7 +27,7 @@
 
 #undef COMBO_TERM_FAST
 #undef COMBO_TERM_SLOW
-#define COMBO_TERM_FAST 50
+#define COMBO_TERM_FAST 100 // 50
 #define COMBO_TERM_SLOW 80
 
 // Change thumb order to OIIO if you want outer-inner-inner-outer or IOOI for

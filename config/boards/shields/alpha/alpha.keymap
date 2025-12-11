@@ -42,7 +42,7 @@ ZMK_COMBO(night_z,     &kp Z,      LB2 LB1, NIGHT, COMBO_TERM_SLOW)
 ZMK_COMBO(night_x,     &kp X,      LB3 LB2, NIGHT, COMBO_TERM_SLOW)
 ZMK_COMBO(night_sqt,   &kp SQT,    RB1 RB2, NIGHT, COMBO_TERM_SLOW)
 ZMK_COMBO(night_semi,  &kp SEMI,   RB2 RB3, NIGHT, COMBO_TERM_SLOW)
-ZMK_COMBO(night_caps,  &caps_word, LM1 RM1, NIGHT, COMBO_TERM_SLOW)
+//ZMK_COMBO(night_caps,  &caps_word, LM1 RM1, NIGHT, COMBO_TERM_SLOW)
 
 ZMK_LAYER(night_layer,
     // b f l k q  p g o u .
@@ -100,6 +100,7 @@ ZMK_LAYER(taipo_layer,
 // Add momentary mouse to both thumbs
 ZMK_COMBO(Lmouse, &mo MOUSE, ITL OTL, TAIPO, COMBO_TERM_FAST)
 ZMK_COMBO(Rmouse, &mo MOUSE, ITR OTR, TAIPO, COMBO_TERM_FAST)
+ZMK_COMBO(Bmouse, &mo MOUSE, ITL ITR, TAIPO, COMBO_TERM_FAST)
 
 ZMK_LAYER(taipo_inner,
     // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
