@@ -35,19 +35,35 @@
 #define THUMB_ORDER_OIIO 1
 
 #if defined(THUMB_ORDER_IOOI)
-    #define INNER_THUMB_L LB1
+    #if defined (LH1)
+        #define INNER_THUMB_L LH1
+    #else
+        #define INNER_THUMB_L LB1
+    #endif
     #define OUTER_THUMB_L LH0
     #define OUTER_THUMB_R RH0
-    #define INNER_THUMB_R RB1
+    #if defined (RH1)
+        #define INNER_THUMB_R RH1
+    #else
+        #define INNER_THUMB_R RB1
+    #endif
     #define TAIPO_TH_1 &kp SPACE
     #define TAIPO_TH_2 &kp BSPC
     #define TAIPO_TH_3 &kp BSPC
     #define TAIPO_TH_4 &kp SPACE
 #elif defined(THUMB_ORDER_OIIO)
-    #define OUTER_THUMB_L LB1
+    #if defined (LH1)
+        #define OUTER_THUMB_L LH1
+    #else
+        #define OUTER_THUMB_L LB1
+    #endif
     #define INNER_THUMB_L LH0
     #define INNER_THUMB_R RH0
-    #define OUTER_THUMB_R RB1
+    #if defined (RH1)
+        #define OUTER_THUMB_R RH1
+    #else
+        #define OUTER_THUMB_R RB1
+    #endif
     #define TAIPO_TH_1 &kp BSPC
     #define TAIPO_TH_2 &kp SPACE
     #define TAIPO_TH_3 &kp SPACE
@@ -117,6 +133,7 @@
     ZMK_COMBO(ROV##name, kp, MAP_R(__VA_ARGS__), TAIPO_OUTER, COMBO_TERM_FAST)
 
 // TODO: Add bluetooth stuff
+
 
 // Virtual thumb activation combos
 // One-shot virtual inner thumb: M2+M3+M4
@@ -279,6 +296,7 @@ ZMK_COMBO_TAIPO(gcs     , &sk LG(LC(LSHFT))    , M1, T1, M2, T2, M4, T4)
 ZMK_COMBO_TAIPO(acs     , &sk LA(LC(LSHFT))    , M1, T1, M2, T2, M3, T3)
 ZMK_COMBO_TAIPO(gacs    , &sk LG(LA(LC(LSHFT))), M1, T1, M2, T2, M3, T3, M4, T4)
 
+// hjkl is left down up right, so mirrored is right up down left
 ZMK_COMBO_TAIPO_IT(right, &kp RIGHT   , M4, T4)
 ZMK_COMBO_TAIPO_IT(up   , &kp UP      , M3, T3)
 ZMK_COMBO_TAIPO_IT(down , &kp DOWN    , M2, T2)
