@@ -1,0 +1,180 @@
+/*                KEY POSITIONS
+
+  ╭─────────────────────╮ ╭─────────────────────╮
+  │ LT4 LT3 LT2 LT1 ___ │ │ ___ RT1 RT2 RT3 RT4 │
+  │ LM4 LM3 LM2 LM1 ___ │ │ ___ RM1 RM2 RM3 RM4 │
+  ╰───╮ ___ ___ ___ LH0 │ │ RH0 ___ ___ ___ ╭───╯
+      ╰─────────────────╯ ╰─────────────────╯
+  ╭─────────────────────╮ ╭─────────────────────╮
+  │  C   R   S   T  ___ │ │ ___  A   E   U   I  │
+  │  C   R   S   T  ___ │ │ ___  A   E   U   I  │
+  ╰───╮ ___ ___ ___ SPC │ │  N  ___ ___ ___ ╭───╯
+      ╰─────────────────╯ ╰─────────────────╯
+
+  Crescent layout: Uses chords on left (CRST) and right (AEUI) sides
+  with N on right thumb only. Left thumb is just space (no combos).
+*/
+
+// Left hand: C=LT4/LM4, R=LT3/LM3, S=LT2/LM2, T=LT1/LM1
+// Right hand: A=RT1/RM1, E=RT2/RM2, U=RT3/RM3, I=RT4/RM4
+// Right Thumb: N=RH0, Left Thumb: Space (LH0, no combos)
+
+#undef COMBO_TERM_FAST
+#undef COMBO_TERM_SLOW
+#define COMBO_TERM_FAST 100
+#define COMBO_TERM_SLOW 80
+
+#ifdef CRESCENT
+  #ifndef CRESCENT_LAYER
+    #error "CRESCENT_LAYER must be defined"
+  #endif
+#else
+  #define CRESCENT 0
+  #define CRESCENT_LAYER 0
+#endif
+
+//  // Macros for left/right combo definitions
+//  // Left side uses positions: LT4(c) LT3(r) LT2(s) LT1(t) LM4(c) LM3(r) LM2(s) LM1(t) LH0(n)
+//  // Right side uses positions: RT1(a) RT2(e) RT3(u) RT4(i) RM1(a) RM2(e) RM3(u) RM4(i) RH0(n)
+//  
+//  // For crescent, we define combos using both top and middle row keys for the same letter
+//  // This differs from taipo which has distinct letters per row
+//  
+//  // Helper to create left+right combos
+//  #define ZMK_COMBO_CRESCENT(name, kp, left_keys, right_keys) \
+//      ZMK_COMBO(L##name, kp, left_keys, CRESCENT_LAYER, COMBO_TERM_FAST) \
+//      ZMK_COMBO(R##name, kp, right_keys, CRESCENT_LAYER, COMBO_TERM_FAST)
+//  
+//  // Single key presses (base letters) - these are on the keymap, not combos
+//  // c = LT4/LM4, r = LT3/LM3, s = LT2/LM2, t = LT1/LM1
+//  // a = RT1/RM1, e = RT2/RM2, u = RT3/RM3, i = RT4/RM4
+//  // n = LH0/RH0 (thumb)
+//  
+//  // Two-key combos - using top row positions as canonical
+//  // Left side pairs
+//  ZMK_COMBO_CRESCENT(w,     &kp W,     LT4 LT3, RT1 RT2)  // c+r = w, a+e = o (but we mirror)
+//  ZMK_COMBO_CRESCENT(f,     &kp F,     LT4 LT2, RT1 RT3)  // c+s = f
+//  ZMK_COMBO_CRESCENT(g,     &kp G,     LT4 LT1, RT1 RT4)  // c+t = g
+//  ZMK_COMBO_CRESCENT(q,     &kp Q,     LT4 LH0, RT1 RH0)  // c+n = q
+//  ZMK_COMBO_CRESCENT(x,     &kp X,     LT3 LT2, RT2 RT3)  // r+s = x
+//  ZMK_COMBO_CRESCENT(j,     &kp J,     LT3 LT1, RT2 RT4)  // r+t = j
+//  ZMK_COMBO_CRESCENT(l,     &kp L,     LT3 LH0, RT2 RH0)  // r+n = l
+//  ZMK_COMBO_CRESCENT(d,     &kp D,     LT2 LT1, RT3 RT4)  // s+t = d
+//  ZMK_COMBO_CRESCENT(z,     &kp Z,     LT2 LH0, RT3 RH0)  // s+n = z
+//  ZMK_COMBO_CRESCENT(m,     &kp M,     LT1 LH0, RT4 RH0)  // t+n = m
+//  
+//  // Right side pairs (different output than left)
+//  // For the right side, we need to handle a+e, a+u, etc separately
+//  // Actually, looking at crescent more carefully:
+//  // Left side (crst) produces: c,r,s,t and their combos
+//  // Right side (aeui) produces: a,e,u,i and their combos
+//  // The n thumb is shared
+//  
+//  // Let me re-read the crescent spec... The layout shows CRST on both rows of left,
+//  // and AEUI on both rows of right. Combos between positions produce different chars.
+//  
+//  // Redefining based on actual crescent chord mappings:
+
+// Left side combos (CRST + N)
+ZMK_COMBO(Lw,     &kp W,     LM4 LM3,     CRESCENT_LAYER, COMBO_TERM_FAST)  // c+r
+ZMK_COMBO(Lf,     &kp F,     LM4 LM2,     CRESCENT_LAYER, COMBO_TERM_FAST)  // c+s
+ZMK_COMBO(Lg,     &kp G,     LM4 LM1,     CRESCENT_LAYER, COMBO_TERM_FAST)  // c+t
+ZMK_COMBO(Lq,     &kp Q,     LM4 RH0,     CRESCENT_LAYER, COMBO_TERM_FAST)  // c+n
+ZMK_COMBO(Lsqt,   &kp SQT,   LM4 RM1,     CRESCENT_LAYER, COMBO_TERM_FAST)  // c+a (cross-hand)
+ZMK_COMBO(Lhash,  &kp HASH,  LM4 RM2,     CRESCENT_LAYER, COMBO_TERM_FAST)  // c+e = #
+ZMK_COMBO(Ly,     &kp Y,     LM4 RM3,     CRESCENT_LAYER, COMBO_TERM_FAST)  // c+u
+ZMK_COMBO(Lp,     &kp P,     LM4 RM4,     CRESCENT_LAYER, COMBO_TERM_FAST)  // c+i
+ZMK_COMBO(Lx,     &kp X,     LM3 LM2,     CRESCENT_LAYER, COMBO_TERM_FAST)  // r+s
+ZMK_COMBO(Lj,     &kp J,     LM3 LM1,     CRESCENT_LAYER, COMBO_TERM_FAST)  // r+t
+ZMK_COMBO(Ll,     &kp L,     LM3 RH0,     CRESCENT_LAYER, COMBO_TERM_FAST)  // r+n
+ZMK_COMBO(Lexcl,  &kp EXCL,  LM3 RM1,     CRESCENT_LAYER, COMBO_TERM_FAST)  // r+a = !
+ZMK_COMBO(Lat,    &kp AT,    LM3 RM2,     CRESCENT_LAYER, COMBO_TERM_FAST)  // r+e = @
+ZMK_COMBO(Lcomma, &kp COMMA, LM3 RM4,     CRESCENT_LAYER, COMBO_TERM_FAST)  // r+i
+ZMK_COMBO(Lunder, &kp UNDER, LM3 RM3,     CRESCENT_LAYER, COMBO_TERM_FAST)  // r+u = _
+ZMK_COMBO(Ld,     &kp D,     LM2 LM1,     CRESCENT_LAYER, COMBO_TERM_FAST)  // s+t
+ZMK_COMBO(Lz,     &kp Z,     LM2 RH0,     CRESCENT_LAYER, COMBO_TERM_FAST)  // s+n
+ZMK_COMBO(Lgrave, &kp GRAVE, LM2 RM1,     CRESCENT_LAYER, COMBO_TERM_FAST)  // s+a = `
+ZMK_COMBO(Lbspc,  &kp BSPC,  LM2 RM2,     CRESCENT_LAYER, COMBO_TERM_FAST)  // s+e = bspc
+ZMK_COMBO(Lv,     &kp V,     LM2 RM3,     CRESCENT_LAYER, COMBO_TERM_FAST)  // s+u
+ZMK_COMBO(Lb,     &kp B,     LM2 RM4,     CRESCENT_LAYER, COMBO_TERM_FAST)  // s+i
+ZMK_COMBO(Lm,     &kp M,     LM1 RH0,     CRESCENT_LAYER, COMBO_TERM_FAST)  // t+n
+ZMK_COMBO(Lenter, &kp ENTER, LM1 RM1,     CRESCENT_LAYER, COMBO_TERM_FAST)  // t+a = ret
+ZMK_COMBO(Ltab,   &kp TAB,   LM1 RM2,     CRESCENT_LAYER, COMBO_TERM_FAST)  // t+e = tab
+ZMK_COMBO(Lk,     &kp K,     LM1 RM3,     CRESCENT_LAYER, COMBO_TERM_FAST)  // t+u
+ZMK_COMBO(Lslash, &kp SLASH, LM1 RM4,     CRESCENT_LAYER, COMBO_TERM_FAST)  // t+i = /
+ZMK_COMBO(Llpar,  &kp LPAR,  RH0 RM1,     CRESCENT_LAYER, COMBO_TERM_FAST)  // n+a = (
+ZMK_COMBO(Lrpar,  &kp RPAR,  RH0 RM2,     CRESCENT_LAYER, COMBO_TERM_FAST)  // n+e = )
+ZMK_COMBO(Lh,     &kp H,     RH0 RM3,     CRESCENT_LAYER, COMBO_TERM_FAST)  // n+u
+ZMK_COMBO(Lqmark, &kp QMARK, RH0 RM4,     CRESCENT_LAYER, COMBO_TERM_FAST)  // n+i = ?
+
+// Right side only combos (AEUI)
+ZMK_COMBO(Lo,     &kp O,     RM1 RM2,     CRESCENT_LAYER, COMBO_TERM_FAST)  // a+e
+ZMK_COMBO(Lminus, &kp MINUS, RM1 RM3,     CRESCENT_LAYER, COMBO_TERM_FAST)  // a+u = -
+ZMK_COMBO(Ldot,   &kp DOT,   RM1 RM4,     CRESCENT_LAYER, COMBO_TERM_FAST)  // a+i = .
+ZMK_COMBO(Ldqt,   &kp DQT,   RM2 RM3,     CRESCENT_LAYER, COMBO_TERM_FAST)  // e+u = "
+ZMK_COMBO(Lcolon, &kp COLON, RM2 RM4,     CRESCENT_LAYER, COMBO_TERM_FAST)  // e+i = :
+ZMK_COMBO(Lsemi,  &kp SEMI,  RM3 RM4,     CRESCENT_LAYER, COMBO_TERM_FAST)  // u+i = ;
+
+// Three-key combos on left side + N (right thumb)
+ZMK_COMBO(Lamps,  &kp AMPS,  LM3 LM2 RH0, CRESCENT_LAYER, COMBO_TERM_FAST)  // r+s+n = &
+ZMK_COMBO(Lrbrc,  &kp RBRC,  LM2 LM1 RH0, CRESCENT_LAYER, COMBO_TERM_FAST)  // s+t+n = }
+ZMK_COMBO(Ltilde, &kp TILDE, LM3 LM1 RH0, CRESCENT_LAYER, COMBO_TERM_FAST)  // r+t+n = ~
+ZMK_COMBO(Llbrc,  &kp LBRC,  LM4 LM1 RH0, CRESCENT_LAYER, COMBO_TERM_FAST)  // c+t+n = {
+ZMK_COMBO(Lpipe,  &kp PIPE,  LM4 LM3 RH0, CRESCENT_LAYER, COMBO_TERM_FAST)  // c+r+n = |
+ZMK_COMBO(Lbslh,  &kp BSLH,  LM4 LM2 RH0, CRESCENT_LAYER, COMBO_TERM_FAST)  // c+s+n = \
+
+// Three-key navigation combos (r+s+a/e/u/i)
+ZMK_COMBO(Lleft,  &kp LEFT,  LM3 LM2 RM1, CRESCENT_LAYER, COMBO_TERM_FAST)  // r+s+a
+ZMK_COMBO(Ldown,  &kp DOWN,  LM3 LM2 RM2, CRESCENT_LAYER, COMBO_TERM_FAST)  // r+s+e
+ZMK_COMBO(Lup,    &kp UP,    LM3 LM2 RM3, CRESCENT_LAYER, COMBO_TERM_FAST)  // r+s+u
+ZMK_COMBO(Lright, &kp RIGHT, LM3 LM2 RM4, CRESCENT_LAYER, COMBO_TERM_FAST)  // r+s+i
+
+// Three-key number combos (s+t+a/e/u/i = 7/8/9/$)
+ZMK_COMBO(Ln7,    &kp N7,    LM2 LM1 RM1, CRESCENT_LAYER, COMBO_TERM_FAST)  // s+t+a
+ZMK_COMBO(Ln8,    &kp N8,    LM2 LM1 RM2, CRESCENT_LAYER, COMBO_TERM_FAST)  // s+t+e
+ZMK_COMBO(Ln9,    &kp N9,    LM2 LM1 RM3, CRESCENT_LAYER, COMBO_TERM_FAST)  // s+t+u
+ZMK_COMBO(Ldllr,  &kp DLLR,  LM2 LM1 RM4, CRESCENT_LAYER, COMBO_TERM_FAST)  // s+t+i = $
+
+// Three-key number combos (r+t+a/e/u/i = 4/5/6/%)
+ZMK_COMBO(Ln4,    &kp N4,    LM3 LM1 RM1, CRESCENT_LAYER, COMBO_TERM_FAST)  // r+t+a
+ZMK_COMBO(Ln5,    &kp N5,    LM3 LM1 RM2, CRESCENT_LAYER, COMBO_TERM_FAST)  // r+t+e
+ZMK_COMBO(Ln6,    &kp N6,    LM3 LM1 RM3, CRESCENT_LAYER, COMBO_TERM_FAST)  // r+t+u
+ZMK_COMBO(Lprcnt, &kp PRCNT, LM3 LM1 RM4, CRESCENT_LAYER, COMBO_TERM_FAST)  // r+t+i = %
+
+// Three-key number combos (c+t+a/e/u/i = 1/2/3/0)
+ZMK_COMBO(Ln1,    &kp N1,    LM4 LM1 RM1, CRESCENT_LAYER, COMBO_TERM_FAST)  // c+t+a
+ZMK_COMBO(Ln2,    &kp N2,    LM4 LM1 RM2, CRESCENT_LAYER, COMBO_TERM_FAST)  // c+t+e
+ZMK_COMBO(Ln3,    &kp N3,    LM4 LM1 RM3, CRESCENT_LAYER, COMBO_TERM_FAST)  // c+t+u
+ZMK_COMBO(Ln0,    &kp N0,    LM4 LM1 RM4, CRESCENT_LAYER, COMBO_TERM_FAST)  // c+t+i
+
+// Three-key symbol combos (c+r+a/e/u/i = */+/</> )
+ZMK_COMBO(Lstar,  &kp STAR,  LM4 LM3 RM1, CRESCENT_LAYER, COMBO_TERM_FAST)  // c+r+a = *
+ZMK_COMBO(Lplus,  &kp PLUS,  LM4 LM3 RM2, CRESCENT_LAYER, COMBO_TERM_FAST)  // c+r+e = +
+ZMK_COMBO(Llt,    &kp LT,    LM4 LM3 RM3, CRESCENT_LAYER, COMBO_TERM_FAST)  // c+r+u = <
+ZMK_COMBO(Lgt,    &kp GT,    LM4 LM3 RM4, CRESCENT_LAYER, COMBO_TERM_FAST)  // c+r+i = >
+
+// Three-key symbol combos (c+s+a/e/u/i = ^/=/[/])
+ZMK_COMBO(Lcaret, &kp CARET, LM4 LM2 RM1, CRESCENT_LAYER, COMBO_TERM_FAST)  // c+s+a = ^
+ZMK_COMBO(Lequal, &kp EQUAL, LM4 LM2 RM2, CRESCENT_LAYER, COMBO_TERM_FAST)  // c+s+e = =
+ZMK_COMBO(Llbkt,  &kp LBKT,  LM4 LM2 RM3, CRESCENT_LAYER, COMBO_TERM_FAST)  // c+s+u = [
+ZMK_COMBO(Lrbkt,  &kp RBKT,  LM4 LM2 RM4, CRESCENT_LAYER, COMBO_TERM_FAST)  // c+s+i = ]
+
+// Modifier combos (e+u+c/r/s/t for ctrl/alt/shift/meta)
+ZMK_COMBO(Lctrl,  &sk LCTRL, RM2 RM3 LM4, CRESCENT_LAYER, COMBO_TERM_FAST)  // e+u+c
+ZMK_COMBO(Lalt,   &sk LALT,  RM2 RM3 LM3, CRESCENT_LAYER, COMBO_TERM_FAST)  // e+u+r
+ZMK_COMBO(Lshift, &sk LSHFT, RM2 RM3 LM2, CRESCENT_LAYER, COMBO_TERM_FAST)  // e+u+s
+ZMK_COMBO(Lmeta,  &sk LGUI,  RM2 RM3 LM1, CRESCENT_LAYER, COMBO_TERM_FAST)  // e+u+t
+
+// Multi-modifier combos
+ZMK_COMBO(Lca,    &sk LC(LALT),   RM2 RM3 LM4 LM3, CRESCENT_LAYER, COMBO_TERM_FAST)  // e+u+c+r
+ZMK_COMBO(Lcs,    &sk LC(LSHFT),  RM2 RM3 LM4 LM2, CRESCENT_LAYER, COMBO_TERM_FAST)  // e+u+c+s
+ZMK_COMBO(Lcm,    &sk LC(LGUI),   RM2 RM3 LM4 LM1, CRESCENT_LAYER, COMBO_TERM_FAST)  // e+u+c+t
+ZMK_COMBO(Las,    &sk LA(LSHFT),  RM2 RM3 LM3 LM2, CRESCENT_LAYER, COMBO_TERM_FAST)  // e+u+r+s
+ZMK_COMBO(Lam,    &sk LA(LGUI),   RM2 RM3 LM3 LM1, CRESCENT_LAYER, COMBO_TERM_FAST)  // e+u+r+t
+ZMK_COMBO(Lcas,   &sk LC(LA(LSHFT)),  RM2 RM3 LM4 LM3 LM2, CRESCENT_LAYER, COMBO_TERM_FAST)  // e+u+c+r+s
+ZMK_COMBO(Lcam,   &sk LC(LA(LGUI)),   RM2 RM3 LM4 LM3 LM1, CRESCENT_LAYER, COMBO_TERM_FAST)  // e+u+c+r+t
+ZMK_COMBO(Lcsm,   &sk LC(LS(LGUI)),   RM2 RM3 LM4 LM2 LM1, CRESCENT_LAYER, COMBO_TERM_FAST)  // e+u+c+s+t
+ZMK_COMBO(Lasm,   &sk LA(LS(LGUI)),   RM2 RM3 LM3 LM2 LM1, CRESCENT_LAYER, COMBO_TERM_FAST)  // e+u+r+s+t
+ZMK_COMBO(Lcasm,  &sk LC(LA(LS(LGUI))), RM2 RM3 LM4 LM3 LM2 LM1, CRESCENT_LAYER, COMBO_TERM_FAST)  // e+u+c+r+s+t
+
+/* vim: set tw=180 ft=c: */

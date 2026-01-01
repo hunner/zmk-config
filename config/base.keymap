@@ -18,12 +18,14 @@
 #define TAIPO_INNER 7
 #define TAIPO_OUTER 8
 #define MOUSE 9
-#define STENO 10
+#define CRESCENT 10
+#define CRESCENT_LAYER 10
 
 #include "mouse.dtsi"
 #include "combos.dtsi"
 #include "leader.dtsi"
 #include "taipo.dtsi"
+#include "crescent.dtsi"
 #include "xtr_defaults.h"
 
 ZMK_CONDITIONAL_LAYER(aft, PORT STARBOARD, AFT)
@@ -257,7 +259,7 @@ ZMK_BEHAVIOR(comma_morph, mod_morph,
 //                                                                        ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
 #define LEFT_STARBOARD_MIDDLE_ROW__________________________________________ ___           ___           ___           ___           ___
 //                                                                        ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────╯
-#define LEFT_STARBOARD_LOWER_ROW_______________                                           &to TAIPO     &to STENO     &to NIGHT
+#define LEFT_STARBOARD_LOWER_ROW_______________                                           &to TAIPO     &to CRESCENT  &to NIGHT
 //                                            ^                                         ╰─────────────┴─────────────┴─────────────╯
 
 //                                                                        ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
