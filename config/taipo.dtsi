@@ -117,20 +117,20 @@
 
 // Macros to expand into left/right combos and virtual thumbs
 #define ZMK_COMBO_TAIPO(name, kp, ...) \
-    ZMK_COMBO(L##name, kp, MAP_L(__VA_ARGS__), TAIPO, COMBO_TERM_FAST) \
-    ZMK_COMBO(R##name, kp, MAP_R(__VA_ARGS__), TAIPO, COMBO_TERM_FAST)
+    ZMK_COMBO(taipoL##name, kp, MAP_L(__VA_ARGS__), TAIPO, COMBO_TERM_FAST) \
+    ZMK_COMBO(taipoR##name, kp, MAP_R(__VA_ARGS__), TAIPO, COMBO_TERM_FAST)
 
 #define ZMK_COMBO_TAIPO_IT(name, kp, ...) \
-    ZMK_COMBO(LIT##name, kp, MAP_L(__VA_ARGS__) ITL, TAIPO, COMBO_TERM_FAST) \
-    ZMK_COMBO(RIT##name, kp, MAP_R(__VA_ARGS__) ITR, TAIPO, COMBO_TERM_FAST) \
-    ZMK_COMBO(LIV##name, kp, MAP_L(__VA_ARGS__), TAIPO_INNER, COMBO_TERM_FAST) \
-    ZMK_COMBO(RIV##name, kp, MAP_R(__VA_ARGS__), TAIPO_INNER, COMBO_TERM_FAST)
+    ZMK_COMBO(taipoLIT##name, kp, MAP_L(__VA_ARGS__) ITL, TAIPO, COMBO_TERM_FAST) \
+    ZMK_COMBO(taipoRIT##name, kp, MAP_R(__VA_ARGS__) ITR, TAIPO, COMBO_TERM_FAST) \
+    ZMK_COMBO(taipoLIV##name, kp, MAP_L(__VA_ARGS__), TAIPO_INNER, COMBO_TERM_FAST) \
+    ZMK_COMBO(taipoRIV##name, kp, MAP_R(__VA_ARGS__), TAIPO_INNER, COMBO_TERM_FAST)
 
 #define ZMK_COMBO_TAIPO_OT(name, kp, ...) \
-    ZMK_COMBO(LOT##name, kp, MAP_L(__VA_ARGS__) OTL, TAIPO, COMBO_TERM_FAST) \
-    ZMK_COMBO(ROT##name, kp, MAP_R(__VA_ARGS__) OTR, TAIPO, COMBO_TERM_FAST) \
-    ZMK_COMBO(LOV##name, kp, MAP_L(__VA_ARGS__), TAIPO_OUTER, COMBO_TERM_FAST) \
-    ZMK_COMBO(ROV##name, kp, MAP_R(__VA_ARGS__), TAIPO_OUTER, COMBO_TERM_FAST)
+    ZMK_COMBO(taipoLOT##name, kp, MAP_L(__VA_ARGS__) OTL, TAIPO, COMBO_TERM_FAST) \
+    ZMK_COMBO(taipoROT##name, kp, MAP_R(__VA_ARGS__) OTR, TAIPO, COMBO_TERM_FAST) \
+    ZMK_COMBO(taipoLOV##name, kp, MAP_L(__VA_ARGS__), TAIPO_OUTER, COMBO_TERM_FAST) \
+    ZMK_COMBO(taipoROV##name, kp, MAP_R(__VA_ARGS__), TAIPO_OUTER, COMBO_TERM_FAST)
 
 // TODO: Add bluetooth stuff
 

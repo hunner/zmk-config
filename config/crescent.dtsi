@@ -33,47 +33,7 @@
   #define CRESCENT_LAYER 0
 #endif
 
-//  // Macros for left/right combo definitions
-//  // Left side uses positions: LT4(c) LT3(r) LT2(s) LT1(t) LM4(c) LM3(r) LM2(s) LM1(t) LH0(n)
-//  // Right side uses positions: RT1(a) RT2(e) RT3(u) RT4(i) RM1(a) RM2(e) RM3(u) RM4(i) RH0(n)
-//  
-//  // For crescent, we define combos using both top and middle row keys for the same letter
-//  // This differs from taipo which has distinct letters per row
-//  
-//  // Helper to create left+right combos
-//  #define ZMK_COMBO_CRESCENT(name, kp, left_keys, right_keys) \
-//      ZMK_COMBO(L##name, kp, left_keys, CRESCENT_LAYER, COMBO_TERM_FAST) \
-//      ZMK_COMBO(R##name, kp, right_keys, CRESCENT_LAYER, COMBO_TERM_FAST)
-//  
-//  // Single key presses (base letters) - these are on the keymap, not combos
-//  // c = LT4/LM4, r = LT3/LM3, s = LT2/LM2, t = LT1/LM1
-//  // a = RT1/RM1, e = RT2/RM2, u = RT3/RM3, i = RT4/RM4
-//  // n = LH0/RH0 (thumb)
-//  
-//  // Two-key combos - using top row positions as canonical
-//  // Left side pairs
-//  ZMK_COMBO_CRESCENT(w,     &kp W,     LT4 LT3, RT1 RT2)  // c+r = w, a+e = o (but we mirror)
-//  ZMK_COMBO_CRESCENT(f,     &kp F,     LT4 LT2, RT1 RT3)  // c+s = f
-//  ZMK_COMBO_CRESCENT(g,     &kp G,     LT4 LT1, RT1 RT4)  // c+t = g
-//  ZMK_COMBO_CRESCENT(q,     &kp Q,     LT4 LH0, RT1 RH0)  // c+n = q
-//  ZMK_COMBO_CRESCENT(x,     &kp X,     LT3 LT2, RT2 RT3)  // r+s = x
-//  ZMK_COMBO_CRESCENT(j,     &kp J,     LT3 LT1, RT2 RT4)  // r+t = j
-//  ZMK_COMBO_CRESCENT(l,     &kp L,     LT3 LH0, RT2 RH0)  // r+n = l
-//  ZMK_COMBO_CRESCENT(d,     &kp D,     LT2 LT1, RT3 RT4)  // s+t = d
-//  ZMK_COMBO_CRESCENT(z,     &kp Z,     LT2 LH0, RT3 RH0)  // s+n = z
-//  ZMK_COMBO_CRESCENT(m,     &kp M,     LT1 LH0, RT4 RH0)  // t+n = m
-//  
-//  // Right side pairs (different output than left)
-//  // For the right side, we need to handle a+e, a+u, etc separately
-//  // Actually, looking at crescent more carefully:
-//  // Left side (crst) produces: c,r,s,t and their combos
-//  // Right side (aeui) produces: a,e,u,i and their combos
-//  // The n thumb is shared
-//  
-//  // Let me re-read the crescent spec... The layout shows CRST on both rows of left,
-//  // and AEUI on both rows of right. Combos between positions produce different chars.
-//  
-//  // Redefining based on actual crescent chord mappings:
+// TODO missing escape. There are eight possible right hand three-key combos that are unused
 
 // Left side combos (CRST + N)
 ZMK_COMBO(Lw,     &kp W,     LM4 LM3,     CRESCENT_LAYER, COMBO_TERM_FAST)  // c+r
