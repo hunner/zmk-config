@@ -30,6 +30,8 @@ manifest:
       url-base: https://github.com/hunner
     - name: nmunnich
       url-base: https://github.com/nmunnich
+    - name: local
+      url-base: /home/hunner/Documents/git
 
   projects:
     - name: zmk

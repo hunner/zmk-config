@@ -303,16 +303,11 @@ ZMK_COMBO_TAIPO_IT(down , &kp DOWN    , M2, T2)
 ZMK_COMBO_TAIPO_IT(left , &kp LEFT    , M1, T1)
 
 // NB: This is a deviation from taipo's official layout; I swapped PgUp/PgDn for Home/End
-// It was Right: PgDn-End-Home-PgUp, but now it's Right: End-PgDn-PgUp-Home
-// so 4-3-2-1 is now 3-4-1-2
-// ZMK_COMBO_TAIPO_OT(home  , &kp HOME    , M4, T4)
-// ZMK_COMBO_TAIPO_OT(pgup  , &kp PG_UP   , M3, T3)
-// ZMK_COMBO_TAIPO_OT(pgdn  , &kp PG_DN   , M2, T2)
-// ZMK_COMBO_TAIPO_OT(end   , &kp END     , M1, T1)
-ZMK_COMBO_TAIPO_OT(pgup , &kp PG_UP   , M4, T4)
-ZMK_COMBO_TAIPO_OT(home , &kp HOME    , M3, T3)
-ZMK_COMBO_TAIPO_OT(end  , &kp END     , M2, T2)
-ZMK_COMBO_TAIPO_OT(pgdn , &kp PG_DN   , M1, T1)
+// It was Right: PgDn-End-Home-PgUp, but now it's Right: Home-PgDn-PgUp-End
+ZMK_COMBO_TAIPO_OT(home , &kp HOME    , M1, T1)
+ZMK_COMBO_TAIPO_OT(pgdn , &kp PG_DN   , M2, T2)
+ZMK_COMBO_TAIPO_OT(pgup , &kp PG_UP   , M3, T3)
+ZMK_COMBO_TAIPO_OT(end  , &kp END     , M4, T4)
 
 // Missing sequences after leader key for F-keys.
 // Maybe I can add https://github.com/zmkfirmware/zmk/pull/1380 to my tree
