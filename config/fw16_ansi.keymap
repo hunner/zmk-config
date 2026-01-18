@@ -9,7 +9,7 @@
 #define OFF 11
 
 ZMK_LAYER(helm_layer,
-  &to QWERTY    &none         &none         &none         &none         &none         &none         &none         &none         &to OFF       &none         &none         &none         &none
+  &to QWERTY    &none         &none         &none         &none         &none         &none         &none         &none         &to OFF       &none         &none         &to TAIPO     &none
   &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none
   &none         LEFT_HELM_UPPER_ROW________________________________________________   RIGHT_HELM_UPPER_ROW_______________________________________________   &none         &none         &none
   &none         LEFT_HELM_MIDDLE_ROW_______________________________________________   RIGHT_HELM_MIDDLE_ROW______________________________________________   &none                       &none
@@ -63,11 +63,11 @@ ZMK_LAYER(aft_layer,
 )
 
 ZMK_LAYER(taipo_layer,
+  &to QWERTY    &none         &none         &none         &none         &none         &none         &none         &none         &to OFF       &to HELM      &none         &none         &none
   &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none
-  &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none
-  &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none
-  &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none                       &none
-  &none                       &none         &none         &none         &none         &none         &none         &none         &none         &none         &none                       &none
+  &none         LEFT_TAIPO_UPPER_ROW_________________________________   &none         &none         RIGHT_TAIPO_UPPER_ROW________________________________   &none         &none         &none
+  &none         LEFT_TAIPO_MIDDLE_ROW________________________________   &none         &none         RIGHT_TAIPO_MIDDLE_ROW_______________________________   &none                       &none
+  &none                       &none         &mo MOUSE     LEFT_TAIPO_THUMBS________   &none         RIGHT_TAIPO_THUMBS_______   &mo MOUSE     &none         &none                       &none
   &none         &none         &none         &none                       &none                                     &none         &none         &none         &none         &none         &none
 )
 
