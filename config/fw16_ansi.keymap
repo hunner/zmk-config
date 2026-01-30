@@ -9,7 +9,7 @@
 #define OFF 11
 
 ZMK_LAYER(helm_layer,
-  &to QWERTY    &none         &none         &none         &none         &none         &none         &none         &none         &to OFF       &none         &none         &to TAIPO     &none
+  &to QWERTY    &kp C_MUTE    &kp C_VOL_DN  &kp C_VOL_UP  &kp C_PREV    &kp C_PLAY    &kp C_NEXT    &kp C_BRI_DN  &kp C_BRI_UP  &to OFF       &none         &none         &to TAIPO     &none
   &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none
   &none         LEFT_HELM_UPPER_ROW________________________________________________   RIGHT_HELM_UPPER_ROW_______________________________________________   &none         &none         &none
   &none         LEFT_HELM_MIDDLE_ROW_______________________________________________   RIGHT_HELM_MIDDLE_ROW______________________________________________   &none                       &none
