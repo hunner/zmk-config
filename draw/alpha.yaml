@@ -1,0 +1,146 @@
+layout: { qmk_keyboard: alpha, layout_name: LAYOUT }
+draw_config:
+  footer_text: ""
+  svg_extra_style: |
+    rect.key, rect.combo { fill: #313244; stroke: none; }
+    rect.combo { fill: #1e1e2e; }
+    svg.keymap { background-color: #1e1e2e; }
+    .layer-HELM text, .layer-HELM use, .layer-HELM rect.held { fill: #cfbd99; }
+    .layer-PORT text, .layer-PORT use, .layer-PORT rect.held { fill: #89b4fa; }
+    .layer-STARBOARD text, .layer-STARBOARD use, .layer-STARBOARD rect.held { fill: #a6e3a1; }
+    .layer-AFT text, .layer-AFT use, .layer-AFT rect.held { fill: #dd7878; }
+    .layer-NUM text, .layer-NUM use, .layer-NUM rect.held { fill: #fab387; }
+    text.held { fill: #1e1e2e; }
+    rect.mod { fill: #181825; }
+    text.label { visibility: hidden; }
+    rect:has(~ a[href="#PORT"]) { stroke: #89b4fa; }
+    rect:has(~ a[href="#STARBOARD"]) { stroke: #a6e3a1; }
+    rect:has(~ a[href="#AFT"]) { stroke: #dd7878; }
+    rect:has(~ a[href="#OUTLINE"]) { stroke: #dd7878; stroke-dasharray: 20 30; stroke-dashoffset: 65; }
+    a { visibility: hidden; }
+combos:
+  - { p: [1, 2], k: $$mdi:keyboard-esc$$, l: [HELM] }
+  - { p: [2, 3], k: $$mdi:keyboard-tab$$, l: [HELM] }
+
+  - { p: [6, 7], k: $$mdi:keyboard-return$$, l: [HELM] }
+  - { p: [7, 8], k: $$mdi:backspace$$, l: [HELM] }
+  - { p: [25, 27], k: $$mdi:keyboard-space$$, l: [HELM], a: bottom }
+layers:
+  HELM:
+    [
+      Z,
+      X,
+      B,
+      P,
+      Y,
+      F,
+      G,
+      C,
+      R,
+      L,
+      { t: "A", h: $$mdi:apple-keyboard-shift$$, type: mod },
+      { t: "O", h: $$mdi:apple-keyboard-control$$, type: mod },
+      { t: "E", h: $$mdi:apple-keyboard-option$$, type: mod },
+      { t: "U", h: $$mdi:apple-keyboard-command$$, type: mod },
+      I,
+      D,
+      { t: "H", h: $$mdi:apple-keyboard-command$$, type: mod },
+      { t: "T", h: $$mdi:apple-keyboard-option$$, type: mod },
+      { t: "N", h: $$mdi:apple-keyboard-control$$, type: mod },
+      { t: "S", h: $$mdi:apple-keyboard-shift$$, type: mod },
+      Q,
+      J,
+      K,
+      { t: $$mdi:backspace$$, s: PORT }, # right thumb is backspace and PORT
+      { t: $$mdi:keyboard-space$$, s: STARBOARD },
+      M,
+      W,
+      V,
+    ]
+  PORT:
+    - "'"
+    - ','
+    - '.'
+    - ';'
+    - "PGUP"
+    - "HOME"
+    - { t: "", type: trans }
+    - { t: "", type: trans }
+    - \
+    - { t: "", type: trans }
+    - '{'
+    - '}'
+    - '('
+    - ')'
+    - "PGDN"
+    - "END"
+    - '='
+    - '/'
+    - '+'
+    - '-'
+    - '`'
+    - '['
+    - ']'
+    - { t: "", type: held }
+    - { t: "", s: AFT }
+    - { t: "", type: trans }
+    - { t: "", type: trans }
+    - { t: "", type: trans }
+  STARBOARD:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 0
+    - ""
+    - ""
+    - ""
+    - ""
+    - ""
+    - ""
+    - $$mdi:arrow-left$$
+    - $$mdi:arrow-down$$
+    - $$mdi:arrow-up$$
+    - $$mdi:arrow-right$$
+    - TAIPO
+    - STENO
+    - NIGHT
+    - { t: "", s: AFT }
+    - { t: "", type: held }
+    - QWERTY
+    - ""
+    - HELM
+  AFT:
+    - F1
+    - F2
+    - F3
+    - F4
+    - F5
+    - F6
+    - F7
+    - F8
+    - F9
+    - F10
+    - F11
+    - F12
+    - INSERT
+    - $$mdi:backspace-outline$$
+    - $$mdi:content-paste$$
+    - "scroll left"
+    - "mouse left"
+    - "mouse down"
+    - "mouse up"
+    - "mouse right"
+    - $$mdi:mouse-left-click$$
+    - $$mdi:mouse-right-click$$
+    - $$mdi:cursor-default-click-outline$$
+    - { t: "", type: held }
+    - { t: "", type: held }
+    - "scroll down"
+    - "scroll up"
+    - "scroll right"
