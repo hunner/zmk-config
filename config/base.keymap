@@ -24,7 +24,10 @@
 #include "mouse.dtsi"
 #include "combos.dtsi"
 #include "leader.dtsi"
-#include "taipo.dtsi"
+#include <zmk-taipo/adapters/zmk_helpers.h> // Requires zmk-taipo module.
+#include <zmk-taipo/taipo.dtsi>
+#include <zmk-taipo/features/virtual_thumbs.dtsi>
+#include <zmk-taipo/features/leader.dtsi>
 #include "crescent.dtsi"
 #include "xtr_defaults.h"
 

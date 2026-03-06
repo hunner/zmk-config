@@ -48,7 +48,15 @@
 #undef TAIPO
 #undef TAIPO_INNER
 #undef TAIPO_OUTER
-#include "../../../taipo.dtsi"
+#define TAIPO 0
+#define TAIPO_INNER 1
+#define TAIPO_OUTER 2
+#define TAIPO_THUMB_ORDER_OIIO 1
+#define TAIPO_ENABLE_RIGHT_HAND 1
+#include <zmk-taipo/adapters/zmk_helpers.h>
+#include <zmk-taipo/taipo.dtsi>
+#include <zmk-taipo/features/virtual_thumbs.dtsi>
+#include <zmk-taipo/features/leader.dtsi>
 
 #include "../../../mouse.dtsi"
 

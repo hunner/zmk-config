@@ -1,4 +1,8 @@
 #include "../../../key-labels/28.h"
+
+#define TAIPO_THUMB_ORDER_OIIO 1
+#define TAIPO_ENABLE_RIGHT_HAND 1
+
 #include "../../../base.keymap"
 
 ZMK_LAYER(helm_layer,

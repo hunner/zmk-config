@@ -55,6 +55,10 @@ manifest:
       remote: hunner
       revision: main
       path: modules/zmk/fw16
+    - name: zmk-taipo
+      remote: local
+      revision: main
+      path: modules/zmk/taipo
 
 
     # Only source necessary Zephyr modules. Remove this entire section to

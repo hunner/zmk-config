@@ -21,19 +21,9 @@
   ╰─────────────────╯
 */
 
-// Defines to make thumbless/right taipo happy
+// Thumbless board: provide placeholder thumb positions.
 #define LH0 99
 #define LB1 99
-#define RH0 99
-#define RB1 99
-#define RT1 99
-#define RT2 99
-#define RT3 99
-#define RT4 99
-#define RM1 99
-#define RM2 99
-#define RM3 99
-#define RM4 99
 
 
 
@@ -60,7 +50,15 @@
 #undef TAIPO
 #undef TAIPO_INNER
 #undef TAIPO_OUTER
-#include "../../../taipo.dtsi"
+#define TAIPO 0
+#define TAIPO_INNER 1
+#define TAIPO_OUTER 2
+#define TAIPO_ENABLE_RIGHT_HAND 0
+#define TAIPO_THUMB_ORDER_OIIO 1
+#include <zmk-taipo/adapters/single_hand_left.h>
+#include <zmk-taipo/taipo.dtsi>
+#include <zmk-taipo/features/virtual_thumbs.dtsi>
+#include <zmk-taipo/features/leader.dtsi>
 
 #include "../../../mouse.dtsi"
 
