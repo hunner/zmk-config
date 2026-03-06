@@ -2,4 +2,5 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    # Keep the reusable CI workflow aligned with config/west.yml's pinned ZMK release.
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3
