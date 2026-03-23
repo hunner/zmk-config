@@ -61,3 +61,6 @@
 #define LH0 59  // left thumb key
 
 #define RH0 61  // right thumb key
+
+#define LH1 58  // left thumb key 2 (copy of LB1)
+#define RH1 62  // right thumb key 2 (copy of RB1)
