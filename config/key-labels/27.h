@@ -49,3 +49,5 @@
 #define LH0 26  // left thumb key
 
 #define RH0 99  // NA
+#define LH1 99  // NA
+#define RH1 99  // NA
