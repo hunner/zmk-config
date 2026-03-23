@@ -43,3 +43,7 @@
 #define LH0 23  // left thumb key
 
 #define RH0 24  // right thumb key
+
+// Alternate keys for thumbs
+#define LH1 22
+#define RH1 25

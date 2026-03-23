@@ -12,7 +12,7 @@
   ╭─────────────────╮ ╭─────────────────╮ ╭─────────────────╮ ╭─────────────────╮
   │  0   1   2   3  │ │  4   5   6   7  │ │ LT4 LT3 LT2 LT1 │ │ RT1 RT2 RT3 RT4 │
   │  8   9  10  11  │ │ 12  13  14  15  │ │ LM4 LM3 LM2 LM1 │ │ RM1 RM2 RM3 RM4 │
-  ╰───╮ 16  17 ╭────╯ ╰────╮ 18  19 ╭───╯ ╰───╮ LH0 LB1 ╭───╯ ╰───╮ RB1 RH0 ╭───╯
+  ╰───╮ 16  17 ╭────╯ ╰────╮ 18  19 ╭───╯ ╰───╮ LH1 LH0 ╭───╯ ╰───╮ RH0 RH1 ╭───╯
       ╰────────╯           ╰────────╯         ╰─────────╯         ╰─────────╯ */
 
 // Left hand top row (pinky to index)
@@ -40,23 +40,20 @@
 #define RM4 15
 
 // Thumbs: inner then outer for left, outer then inner for right
-#define LH0 16  // left inner thumb (GP11)
-#define LB1 17  // left outer thumb (GP10)
-#define RB1 18  // right outer thumb (GP9)
-#define RH0 19  // right inner thumb (GP8)
+#define LH1 16  // left inner thumb (GP11)
+#define LH0 17  // left outer thumb (GP10)
+#define RH0 18  // right outer thumb (GP9)
+#define RH1 19  // right inner thumb (GP8)
 
 #undef TAIPO
 #undef TAIPO_INNER
 #undef TAIPO_OUTER
 #define TAIPO 0
-#define TAIPO_INNER 1
-#define TAIPO_OUTER 2
+//#define TAIPO_INNER 1
+//#define TAIPO_OUTER 2
 #define TAIPO_THUMB_ORDER_OIIO 1
-#define TAIPO_ENABLE_RIGHT_HAND 1
-#include <zmk-taipo/adapters/zmk_helpers.h>
 #include <zmk-taipo/taipo.dtsi>
-#include <zmk-taipo/features/virtual_thumbs.dtsi>
-#include <zmk-taipo/features/leader.dtsi>
+//#include <zmk-taipo/features/virtual_thumbs.dtsi>
 
 #include "../../../mouse.dtsi"
 
@@ -65,11 +62,11 @@
 
 ZMK_LAYER(taipo,
     // ╭─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────╮
-         &kp R         &kp S         &kp N         &kp I             &kp I         &kp N         &kp S         &kp R
+         &none         &none         &none         &none             &none         &none         &none         &none
     // ├─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┤
-         &kp A         &kp O         &kp T         &kp E             &kp E         &kp T         &kp O         &kp A
+         &none         &none         &none         &none             &none         &none         &none         &none
     // ╰─────────────┼─────────────┼─────────────┼─────────────╯   ╰─────────────┼─────────────┼─────────────┼─────────────╯
-                       &kp BSPC      &kp SPACE                                     &kp SPACE     &kp BSPC
+                       &none         &none                                         &none         &none
     //               ╰─────────────┴─────────────╯                               ╰─────────────┴─────────────╯
 )
 ZMK_COMBO(tog_mouse, &tog MOUSE, LT1 LM2 LT3, TAIPO MOUSE, COMBO_TERM_FAST)
@@ -77,21 +74,21 @@ ZMK_COMBO(tog_bluetooth, &tog BLUETOOTH, LT1 LM2 LM3 LT4, TAIPO BLUETOOTH, COMBO
 
 ZMK_LAYER(inner,
     // ╭─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────╮
-         &trans        &trans        &trans        &trans            &trans        &trans        &trans        &trans
+         &none         &none         &none         &none             &none         &none         &none         &none
     // ├─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┤
-         &trans        &trans        &trans        &trans            &trans        &trans        &trans        &trans
+         &none         &none         &none         &none             &none         &none         &none         &none
     // ╰─────────────┼─────────────┼─────────────┼─────────────╯   ╰─────────────┼─────────────┼─────────────┼─────────────╯
-                       &trans        &trans                                        &trans        &trans
+                       &none         &none                                         &none         &none
     //               ╰─────────────┴─────────────╯                               ╰─────────────┴─────────────╯
 )
 
 ZMK_LAYER(outer,
     // ╭─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────╮
-         &trans        &trans        &trans        &trans            &trans        &trans        &trans        &trans
+         &none         &none         &none         &none             &none         &none         &none         &none
     // ├─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┤
-         &trans        &trans        &trans        &trans            &trans        &trans        &trans        &trans
+         &none         &none         &none         &none             &none         &none         &none         &none
     // ╰─────────────┼─────────────┼─────────────┼─────────────╯   ╰─────────────┼─────────────┼─────────────┼─────────────╯
-                       &trans        &trans                                        &trans        &trans
+                       &none         &none                                         &none         &none
     //               ╰─────────────┴─────────────╯                               ╰─────────────┴─────────────╯
 )
 
@@ -104,8 +101,8 @@ ZMK_LAYER(mouse,
                        &mkp LCLK     &mkp RCLK                                     &mkp LCLK     &mkp RCLK
     //               ╰─────────────┴─────────────╯                               ╰─────────────┴─────────────╯
 )
-ZMK_COMBO(middle_click_l, &mkp MCLK, LH0 LB1, MOUSE, COMBO_TERM_FAST)
-ZMK_COMBO(middle_click_r, &mkp MCLK, RH0 RB1, MOUSE, COMBO_TERM_FAST)
+ZMK_COMBO(middle_click_l, &mkp MCLK, LH0 LH1, MOUSE, COMBO_TERM_FAST)
+ZMK_COMBO(middle_click_r, &mkp MCLK, RH0 RH1, MOUSE, COMBO_TERM_FAST)
 
 ZMK_LAYER(bluetooth,
     // ╭─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────╮

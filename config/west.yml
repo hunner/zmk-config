@@ -31,7 +31,7 @@ manifest:
     - name: nmunnich
       url-base: https://github.com/nmunnich
     - name: local
-      url-base: /home/hunner/Documents/git
+      url-base: file:///home/hunner/Documents/git
 
   projects:
     - name: zmk
@@ -56,7 +56,7 @@ manifest:
       revision: main
       path: modules/zmk/fw16
     - name: zmk-taipo
-      remote: local
+      remote: hunner
       revision: main
       path: modules/zmk/taipo
 

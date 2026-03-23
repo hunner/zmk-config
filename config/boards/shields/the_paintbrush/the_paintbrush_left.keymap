@@ -21,12 +21,6 @@
   ╰─────────────────╯
 */
 
-// Thumbless board: provide placeholder thumb positions.
-#define LH0 99
-#define LB1 99
-
-
-
 // ARTS Row (top row)
 #undef LT1
 #undef LT2
@@ -46,19 +40,13 @@
 #define LM3 5
 #define LM4 4
 
-//#include "../../../base.keymap"
-#undef TAIPO
-#undef TAIPO_INNER
-#undef TAIPO_OUTER
 #define TAIPO 0
 #define TAIPO_INNER 1
 #define TAIPO_OUTER 2
-#define TAIPO_ENABLE_RIGHT_HAND 0
-#define TAIPO_THUMB_ORDER_OIIO 1
-#include <zmk-taipo/adapters/single_hand_left.h>
+#define TAIPO_ONLY_LEFT_HAND 1
+#define TAIPO_NO_THUMBS 1
 #include <zmk-taipo/taipo.dtsi>
 #include <zmk-taipo/features/virtual_thumbs.dtsi>
-#include <zmk-taipo/features/leader.dtsi>
 
 #include "../../../mouse.dtsi"
 
@@ -67,20 +55,20 @@
 
 // Base TAIPO layer - the 8 base keys
 ZMK_LAYER(taipo,
-  &kp R &kp S &kp N &kp I
-  &kp A &kp O &kp T &kp E
+  &none &none &none &none
+  &none &none &none &none
 )
 ZMK_COMBO(tog_mouse, &tog MOUSE, LT1 LM2 LT3, TAIPO MOUSE, COMBO_TERM_FAST)
 ZMK_COMBO(tog_bluetooth, &tog BLUETOOTH, LT1 LM2 LM3 LT4, TAIPO BLUETOOTH, COMBO_TERM_FAST)
 
 ZMK_LAYER(inner,
-  &trans &trans &trans &trans
-  &trans &trans &trans &trans
+  &none &none &none &none
+  &none &none &none &none
 )
 
 ZMK_LAYER(outer,
-  &trans &trans &trans &trans
-  &trans &trans &trans &trans
+  &none &none &none &none
+  &none &none &none &none
 )
 
 ZMK_LAYER(mouse,
