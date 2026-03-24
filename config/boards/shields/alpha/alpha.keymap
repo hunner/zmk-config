@@ -13,7 +13,7 @@ ZMK_LAYER(helm_layer,
                        LEFT_HELM_LOWER_ROW____________________   L_THUMB           R_THUMB       RIGHT_HELM_LOWER_ROW___________________
     //               ╰─────────────┴─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────┴─────────────╯
 )
-ZMK_COMBO(helm_caps,  &caps_word, LM4 RM4, HELM, COMBO_TERM_SLOW)
+//ZMK_COMBO(helm_caps,  &caps_word, LM4 RM4, HELM, COMBO_TERM_SLOW)
 
 ZMK_LAYER(qwerty_layer,
     // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
