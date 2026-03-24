@@ -1,6 +1,6 @@
 #include "../../../key-labels/28.h"
 
-#define TAIPO_THUMB_ORDER_OIIO 1
+#define TAIPO_MODS_SCAG 1
 
 #include "../../../base.keymap"
 
