@@ -2,11 +2,16 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/backlight.h>
 #include "./key-labels/fw16.h"
+
+// Define before base
+#define CRESCENT 12
+
 #include "base.keymap"
 
 #define FN 9
 #define FN_LOCK 10
 #define OFF 11
+
 
 ZMK_LAYER(helm_layer,
   &to QWERTY    &kp C_MUTE    &kp C_VOL_DN  &kp C_VOL_UP  &kp C_PREV    &kp C_PLAY    &kp C_NEXT    &kp C_BRI_DN  &kp C_BRI_UP  &to OFF       &none         &none         &to TAIPO     &none
@@ -54,7 +59,7 @@ ZMK_LAYER(starboard_layer,
 )
 
 ZMK_LAYER(aft_layer,
-  &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none
+  &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &to CRESCENT  &none         &none
   &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none
   &none         LEFT_AFT_UPPER_ROW_________________________________________________   RIGHT_AFT_UPPER_ROW________________________________________________   &none         &none         &none
   &none         LEFT_AFT_MIDDLE_ROW________________________________________________   RIGHT_AFT_MIDDLE_ROW_______________________________________________   &none                       &none
@@ -109,6 +114,15 @@ ZMK_LAYER(fn_lock_layer,
 
 ZMK_LAYER(off_layer,
   &to QWERTY    &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none
+  &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none
+  &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none
+  &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none                       &none
+  &none                       &none         &none         &none         &none         &none         &none         &none         &none         &none         &none                       &none
+  &none         &none         &none         &none                       &none                                     &none         &none         &none         &none         &none         &none
+)
+
+ZMK_LAYER(crescent_layer,
+  &to QWERTY    &none         &none         &none         &none         &none         &none         &none         &none         &to OFF       &to HELM      &none         &none         &none
   &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none
   &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none
   &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none                       &none

@@ -59,6 +59,10 @@ manifest:
       remote: hunner
       revision: main
       path: modules/zmk/taipo
+    - name: crescent
+      remote: hunner
+      revision: main
+      path: modules/zmk/crescent
 
 
     # Only source necessary Zephyr modules. Remove this entire section to

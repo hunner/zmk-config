@@ -1,7 +1,5 @@
 #include "../../../key-labels/28.h"
 
-#define TAIPO_MODS_SCAG 1
-
 #include "../../../base.keymap"
 
 ZMK_LAYER(helm_layer,

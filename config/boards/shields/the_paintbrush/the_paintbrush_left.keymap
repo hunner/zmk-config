@@ -45,6 +45,7 @@
 #define TAIPO_OUTER 2
 #define TAIPO_ONLY_LEFT_HAND 1
 #define TAIPO_NO_THUMBS 1
+#define TAIPO_MODS_SACG 1
 #include <zmk-taipo/taipo.dtsi>
 #include <zmk-taipo/features/virtual_thumbs.dtsi>
 

@@ -17,16 +17,20 @@
 #define TAIPO 6
 #define TAIPO_INNER 7
 #define TAIPO_OUTER 8
+#define TAIPO_MODS_SACG 1
 #define MOUSE 9
+#ifndef CRESCENT
 #define CRESCENT 10
-#define CRESCENT_LAYER 10
+#endif
+#define CRESCENT_LAYER CRESCENT
 
 #include "mouse.dtsi"
 #include "combos.dtsi"
 #include "leader.dtsi"
 #include <zmk-taipo/taipo.dtsi>
 #include <zmk-taipo/features/virtual_thumbs.dtsi>
-#include "crescent.dtsi"
+//#include "crescent.dtsi"
+#include <zmk-crescent/crescent.dtsi>
 #include "xtr_defaults.h"
 
 ZMK_CONDITIONAL_LAYER(aft, PORT STARBOARD, AFT)
