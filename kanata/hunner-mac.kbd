@@ -1,0 +1,359 @@
+;; ============================================================================
+;;  hunner-mac.kbd  --  kanata port of the ZMK "hunner" layout (helm)
+;;
+;;  Source of truth: zmk-config/config/base.keymap, fw16_ansi.keymap,
+;;                   combos.dtsi, leader.dtsi, mouse.dtsi, key-labels/fw16.h
+;;  Target:          MacBook Pro built-in keyboard, kanata 1.11.0
+;;
+;;  The ZMK keymap is a 28-key layout.  Those 28 positions land on the
+;;  MacBook qwerty keys like this:
+;;
+;;      LT4 LT3 LT2 LT1 LT0 | RT0 RT1 RT2 RT3 RT4      q w e r t | y u i o p
+;;      LM4 LM3 LM2 LM1 LM0 | RM0 RM1 RM2 RM3 RM4  ==  a s d f g | h j k l ;
+;;          LB3 LB2 LB1 LH0 | RH0 RB1 RB2 RB3              z x c v | n m , .
+;;
+;;  `v` is the left thumb (LH0), `n` is the right thumb (RH0).
+;;  `b` has no ZMK position, so it is XX on every custom layer.
+;;  Every other MacBook key is left alone (process-unmapped-keys yes).
+;;
+;; ----------------------------------------------------------------------------
+;;  Running this on macOS
+;;
+;;    - Check the file first:   kanata --check --cfg hunner-mac.kbd
+;;    - kanata on macOS needs Karabiner-DriverKit-VirtualHIDDevice installed,
+;;      and must run with root privileges (sudo, or a LaunchDaemon).
+;;      It also needs Input Monitoring permission.
+;;    - `kanata -l` / `kanata --list` prints the keyboard names that
+;;      macos-dev-names-include accepts.  Run it once and paste the exact
+;;      string below if the default does not match your machine; the built-in
+;;      keyboard name is not identical on every Mac model.
+;;
+;; ----------------------------------------------------------------------------
+;;  Switching hunner <-> qwerty
+;;
+;;  Implemented here:
+;;    - starboard + m  -> qwerty      (from the ZMK starboard layer)
+;;    - starboard + .  -> helm        (from the ZMK starboard layer)
+;;    - caps           -> toggles     (helm -> qwerty, qwerty -> helm)
+;;
+;;  Other options, if caps turns out to be wrong:
+;;    - a chordsv2 entry on (lmet rmet) that does (layer-switch ...)
+;;    - a single F-key, e.g. binding f13 or f18 in defsrc
+;;    - kanata's `(layer-switch ...)` on any key you never otherwise use
+;;  The F-row is deliberately left out of defsrc so macOS keeps its native
+;;  brightness / volume / media behaviour.
+;; ============================================================================
+
+(defcfg
+  ;; Anything not in defsrc still flows through kanata untouched.  This is
+  ;; required for transparent keys and for chordsv2 to see the whole board.
+  process-unmapped-keys yes
+
+  ;; Mandatory when defchordsv2 is used.  It also makes tap-hold keys that are
+  ;; activated by a chord behave responsively.
+  concurrent-tap-hold   yes
+
+  ;; ZMK combos.dtsi: COMBO_HOOK = require-prior-idle-ms = <75>.
+  ;; Same idea: for 75 ms after any non-chord key, chord processing is skipped.
+  chords-v2-min-idle    75
+
+  ;; ZMK leader has no timeout; 1000 ms is kanata's default and is plenty.
+  sequence-timeout      1000
+
+  ;; ZMK leader.dtsi: ignore-keys = <LSHFT RSHFT>.  kanata's nearest
+  ;; equivalent: with backtrack-modcancel enabled (the default), an unshifted
+  ;; sequence still matches while shift is held.
+  sequence-backtrack-modcancel yes
+
+  ;; Only grab the built-in keyboard, so external keyboards stay native.
+  ;; Confirm the exact string with `kanata --list`; it varies by model.
+  macos-dev-names-include ("Apple Internal Keyboard / Trackpad")
+)
+
+;; ============================================================================
+;;  Timings -- every value is copied from the ZMK config
+;; ============================================================================
+
+(defvar
+  ;; &hml / &hmr: tapping-term-ms = <280>
+  hrm-hold    280
+  ;; QUICK_TAP_MS = 175.  In kanata this is the tap-repress-timeout: a
+  ;; press-release-press inside this window holds the TAP action, which is
+  ;; exactly what ZMK's quick-tap-ms does (tap-into-hold repeat).
+  quick-tap   175
+  ;; &hml / &hmr: require-prior-idle-ms = <150>
+  prior-idle  150
+
+  ;; &lt: tapping-term-ms = <200>, quick-tap-ms = <QUICK_TAP_MS>
+  lt-hold     200
+
+  ;; combos.dtsi: COMBO_TERM_FAST = 30
+  combo-term  30
+
+  ;; ZMK hold-trigger-key-positions lists the positions that ALLOW the hold.
+  ;; kanata's tap-hold-release-keys takes the opposite list: the keys that
+  ;; force an early TAP.  So these are the same-hand keys -- the complement of
+  ;; ZMK's <KEYS_R THUMBS> / <KEYS_L THUMBS>.
+  ;;   KEYS_L = LT0-4 LM0-4 LB1-3    KEYS_R = RT0-4 RM0-4 RB1-3
+  left-hand   (q w e r t  a s d f g  z x c)
+  right-hand  (y u i o p  h j k l ;  m , .)
+
+  ;; Mouse move: ZMK mmv is 600 units/s with an 80 ms ramp (mouse.dtsi).
+  ;; 5 ms interval * 3 px = 600 px/s at full speed, ramping from 1 px over 80 ms.
+  mm-interval 5
+  mm-ramp     80
+  mm-min      1
+  mm-max      3
+
+  ;; Mouse wheel: ZMK msc is 15 scroll units/s, no acceleration.
+  ;; 70 ms interval ~= 14 notches/s; 120 = one notch.
+  mw-interval 70
+  mw-distance 120
+)
+
+;; ============================================================================
+;;  defsrc -- the 28 layout keys, plus the unused `b`, plus caps
+;; ============================================================================
+
+(defsrc
+  caps
+  q    w    e    r    t         y    u    i    o    p
+  a    s    d    f    g         h    j    k    l    ;
+  z    x    c    v    b         n    m    ,    .
+)
+
+;; ============================================================================
+;;  Aliases
+;; ============================================================================
+
+(defalias
+  ;; -- home-row mods ---------------------------------------------------------
+  ;;
+  ;; ZMK: &hml / &hmr, flavor "balanced", hold-trigger-on-release,
+  ;;      hold-trigger-key-positions = other hand + both thumbs,
+  ;;      require-prior-idle-ms = 150.
+  ;;
+  ;; kanata: tap-hold-release-keys behaves like tap-hold-release (= balanced +
+  ;; hold-trigger-on-release: the hold fires early only once another key is
+  ;; pressed AND released) and additionally fires an early TAP when one of the
+  ;; listed keys is pressed.  Listing the same-hand keys therefore reproduces
+  ;; ZMK's positional restriction.
+  ;;
+  ;; One nuance is not reproduced: ZMK's `hold-trigger-on-release` defers the
+  ;; positional decision until the interrupting key is *released*, which lets
+  ;; you stack two mods on one hand.  kanata fires the early tap on the press.
+  ;; If you want that back, swap in (it parses and checks cleanly):
+  ;;   (tap-hold-release-tap-keys-release $quick-tap $hrm-hold a lsft () $left-hand)
+  ;; -- the same-hand list moves to the "pressed then released" slot.
+  ;;
+  ;; require-prior-idle is layered on top with a switch: if the previous key
+  ;; was pressed less than 150 ms ago, emit the plain letter and never the mod.
+  ;; (key-timing recency 1 is the previously pressed key -- the key this switch
+  ;; is deciding is not yet in the history.)  Note that kanata's key history
+  ;; records *outputs*, so a press that emits nothing does not reset the timer,
+  ;; whereas ZMK counts every physical press.
+
+  ;; left hand: A(shift) O(ctrl) E(alt) U(cmd)
+  hm-a (switch ((key-timing 1 lt $prior-idle)) a break
+               () (tap-hold-release-keys $quick-tap $hrm-hold a lsft $left-hand) break)
+  hm-o (switch ((key-timing 1 lt $prior-idle)) o break
+               () (tap-hold-release-keys $quick-tap $hrm-hold o lctl $left-hand) break)
+  hm-e (switch ((key-timing 1 lt $prior-idle)) e break
+               () (tap-hold-release-keys $quick-tap $hrm-hold e lalt $left-hand) break)
+  hm-u (switch ((key-timing 1 lt $prior-idle)) u break
+               () (tap-hold-release-keys $quick-tap $hrm-hold u lmet $left-hand) break)
+
+  ;; right hand: H(cmd) T(alt) N(ctrl) S(shift)
+  hm-h (switch ((key-timing 1 lt $prior-idle)) h break
+               () (tap-hold-release-keys $quick-tap $hrm-hold h rmet $right-hand) break)
+  hm-t (switch ((key-timing 1 lt $prior-idle)) t break
+               () (tap-hold-release-keys $quick-tap $hrm-hold t ralt $right-hand) break)
+  hm-n (switch ((key-timing 1 lt $prior-idle)) n break
+               () (tap-hold-release-keys $quick-tap $hrm-hold n rctl $right-hand) break)
+  hm-s (switch ((key-timing 1 lt $prior-idle)) s break
+               () (tap-hold-release-keys $quick-tap $hrm-hold s rsft $right-hand) break)
+
+  ;; -- thumbs (ZMK &lt, flavor balanced, 200 ms term, 175 ms quick-tap) -------
+  ;; tap-hold-release == balanced: hold wins only after another key is pressed
+  ;; and released, or after the full 200 ms.
+  th-l  (tap-hold-release $quick-tap $lt-hold bspc (layer-while-held port))
+  th-r  (tap-hold-release $quick-tap $lt-hold spc  (layer-while-held starboard))
+  ;; ZMK builds AFT with ZMK_CONDITIONAL_LAYER(PORT STARBOARD -> AFT).
+  ;; kanata has no conditional layers, so the *other* thumb inside each of
+  ;; port/starboard holds aft instead.  Same fingers, same result.
+  th-la (tap-hold-release $quick-tap $lt-hold bspc (layer-while-held aft))
+  th-ra (tap-hold-release $quick-tap $lt-hold spc  (layer-while-held aft))
+
+  ;; -- layer switches --------------------------------------------------------
+  to-qwt (layer-switch qwerty)
+  to-hlm (layer-switch helm)
+
+  ;; -- aft: mouse ------------------------------------------------------------
+  ;; ZMK &mmv accelerates to a maximum over 80 ms; movemouse-accel is the
+  ;; matching kanata action (interval, ramp time, min px, max px).
+  ms-l (movemouse-accel-left  $mm-interval $mm-ramp $mm-min $mm-max)
+  ms-d (movemouse-accel-down  $mm-interval $mm-ramp $mm-min $mm-max)
+  ms-u (movemouse-accel-up    $mm-interval $mm-ramp $mm-min $mm-max)
+  ms-r (movemouse-accel-right $mm-interval $mm-ramp $mm-min $mm-max)
+  ;; ZMK &msc has acceleration-exponent 0, i.e. constant speed -> plain mwheel.
+  mw-l (mwheel-left  $mw-interval $mw-distance)
+  mw-d (mwheel-down  $mw-interval $mw-distance)
+  mw-u (mwheel-up    $mw-interval $mw-distance)
+  mw-r (mwheel-right $mw-interval $mw-distance)
+  ;; ZMK PASTE is LS(INSERT).  macOS has no shift+insert paste, so: cmd+v.
+  pst  M-v
+)
+
+;; ============================================================================
+;;  helm -- the base layer
+;;
+;;      z  x  b  p  y   |   f  g  c  r  l
+;;      A  O  E  U  i   |   d  H  T  N  S      (capitals = home-row mods)
+;;      q  j  k  ⌫/port |   spc/strb  m  w  v
+;; ============================================================================
+
+(deflayer helm
+  @to-qwt
+  z      x      b      p      y            f      g      c      r      l
+  @hm-a  @hm-o  @hm-e  @hm-u  i            d      @hm-h  @hm-t  @hm-n  @hm-s
+  q      j      k      @th-l  XX           @th-r  m      w      v
+)
+
+;; ============================================================================
+;;  port -- held with the left thumb
+;;
+;;      '  ,  .  ;  pgup  |  home  XX  XX  \  XX
+;;      {  }  (  )  pgdn  |  end   =   /   +  -
+;;      `  [  ]  (held)   |  spc/aft  XX  XX  XX
+;; ============================================================================
+
+(deflayer port
+  _
+  '      ,      .      ;      pgup         home   XX     XX     \      XX
+  S-[    S-]    S-9    S-0    pgdn         end    =      /      S-=    -
+  `      [      ]      _      XX           @th-ra XX     XX     XX
+)
+
+;; ============================================================================
+;;  starboard -- held with the right thumb
+;;
+;;      1  2  3  4  5      |  6  7  8  9  0
+;;      XX XX XX XX XX     |  XX left down up right
+;;      XX XX XX ⌫/aft     |  (held)  qwerty  XX  helm
+;;
+;;  ZMK had `to TAIPO / to CRESCENT / to NIGHT` on the bottom-left three keys.
+;;  Those layers are not ported, so they are XX here.
+;; ============================================================================
+
+(deflayer starboard
+  _
+  1      2      3      4      5            6      7      8      9      0
+  XX     XX     XX     XX     XX           XX     left   down   up     right
+  XX     XX     XX     @th-la XX           _      @to-qwt XX     @to-hlm
+)
+
+;; ============================================================================
+;;  aft -- both thumbs held (ZMK conditional layer PORT+STARBOARD)
+;;
+;;      f1  f2  f3  f4  f5    |  f6      f7    f8    f9    f10
+;;      f11 f12 ins del paste |  scrl←   ms←   ms↓   ms↑   ms→
+;;      lclk rclk mclk (held) |  (held)  scrl↓ scrl↑ scrl→
+;; ============================================================================
+
+(deflayer aft
+  _
+  f1     f2     f3     f4     f5           f6     f7     f8     f9     f10
+  f11    f12    ins    del    @pst         @mw-l  @ms-l  @ms-d  @ms-u  @ms-r
+  mlft   mrgt   mmid   _      XX           _      @mw-d  @mw-u  @mw-r
+)
+
+;; ============================================================================
+;;  qwerty -- fully transparent, so macOS sees the keyboard as it really is.
+;;  Only caps is bound, to get back to helm.
+;; ============================================================================
+
+(deflayer qwerty
+  @to-hlm
+  _      _      _      _      _            _      _      _      _      _
+  _      _      _      _      _            _      _      _      _      _
+  _      _      _      _      _            _      _      _      _
+)
+
+;; ============================================================================
+;;  Combos -- ZMK combos.dtsi, all on HELM only, COMBO_TERM_FAST = 30 ms
+;;
+;;  release-behaviour: ZMK releases a combo's binding as soon as the first
+;;  participating key goes up, so `first-release` is the faithful choice.
+;;  (`all-released` would keep e.g. esc held until both keys are up.)
+;;
+;;  defchordsv2 is used rather than v1 `defchords` because v2 is global and
+;;  sits ahead of layer processing, so it coexists with the home-row mods.
+;;  None of the chord keys is a home-row-mod key, so there is no interaction.
+;; ============================================================================
+
+(defchordsv2
+  ;; keys      action    timeout       release        disabled on
+  (w e)        esc       $combo-term   first-release  (port starboard aft qwerty)
+  (e r)        tab       $combo-term   first-release  (port starboard aft qwerty)
+  (u i)        ret       $combo-term   first-release  (port starboard aft qwerty)
+  (i o)        bspc      $combo-term   first-release  (port starboard aft qwerty)
+  (m .)        spc       $combo-term   first-release  (port starboard aft qwerty)
+  (z x)        mlft      $combo-term   first-release  (port starboard aft qwerty)
+  (x c)        mrgt      $combo-term   first-release  (port starboard aft qwerty)
+  (t y)        sldr      $combo-term   first-release  (port starboard aft qwerty)
+)
+
+;; ============================================================================
+;;  Leader sequences -- ZMK leader.dtsi
+;;
+;;  The chord t+y enters sequence mode (`sldr`).  The keys below are the
+;;  letters the *helm layout produces*, not the physical qwerty keys, because
+;;  kanata matches sequences against its own output.  So `o` means the key
+;;  that types o in helm (physical `s`), and so on -- exactly as in ZMK.
+;;
+;;  ZMK uses ZMK_UNICODE_PAIR, which gives the capital when shift is held.
+;;  `fork` reproduces that: left action normally, right action if a shift is
+;;  active.
+;;
+;;  macOS caveat (kanata docs, "Unicode"): the unicode action may not be
+;;  accepted by every application; the clipboard actions are more reliable if
+;;  a particular app misbehaves.  The Linux/Wayland breakage noted there does
+;;  not apply on macOS.
+;; ============================================================================
+
+(deftemplate uc (name input lower upper)
+  (defvirtualkeys $name (fork (unicode $lower) (unicode $upper) (lsft rsft)))
+  (defseq         $name $input)
+)
+
+;; German umlauts
+(t! uc de-ae     (a)    ä  Ä)
+(t! uc de-oe     (o)    ö  Ö)
+(t! uc de-ue     (u)    ü  Ü)
+(t! uc de-eszett (s)    ß  ẞ)
+
+;; Greek letters -- prefix `e`, then the ZMK mnemonic letter
+(t! uc el-alpha   (e a)  α  Α)
+(t! uc el-beta    (e b)  β  Β)
+(t! uc el-gamma   (e g)  γ  Γ)
+(t! uc el-delta   (e d)  δ  Δ)
+(t! uc el-epsilon (e e)  ε  Ε)
+(t! uc el-zeta    (e z)  ζ  Ζ)
+(t! uc el-eta     (e h)  η  Η)
+(t! uc el-theta   (e v)  θ  Θ)
+(t! uc el-iota    (e i)  ι  Ι)
+(t! uc el-kappa   (e k)  κ  Κ)
+(t! uc el-lambda  (e l)  λ  Λ)
+(t! uc el-mu      (e m)  μ  Μ)
+(t! uc el-nu      (e n)  ν  Ν)
+(t! uc el-xi      (e x)  ξ  Ξ)
+(t! uc el-omikron (e o)  ο  Ο)
+(t! uc el-pi      (e p)  π  Π)
+(t! uc el-rho     (e r)  ρ  Ρ)
+(t! uc el-sigma   (e s)  σ  Σ)
+(t! uc el-tau     (e t)  τ  Τ)
+(t! uc el-upsilon (e u)  υ  Υ)
+(t! uc el-phi     (e f)  ϕ  Φ)
+(t! uc el-chi     (e c)  χ  Χ)
+(t! uc el-psi     (e y)  ψ  Ψ)
+(t! uc el-omega   (e w)  ω  Ω)
