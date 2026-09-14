@@ -25,3 +25,4 @@ include:
     shield: the_paintbrush_left
   - board: rp2040_zero
     shield: chouchou
+  - board: lil_b

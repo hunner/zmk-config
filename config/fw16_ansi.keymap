@@ -75,6 +75,9 @@ ZMK_LAYER(taipo_layer,
   &none                       &none         &mo MOUSE     &none         &none         &none         &none         &none         &mo MOUSE     &none         &none                       &none
   &none         &none         &none         &none                       &none                                     &none         &none         &none         &none         &none         &none
 )
+ZMK_COMBO(Lmouse, &mo MOUSE, ITL OTL, TAIPO, COMBO_TERM_FAST)
+ZMK_COMBO(Rmouse, &mo MOUSE, ITR OTR, TAIPO, COMBO_TERM_FAST)
+ZMK_COMBO(Bmouse, &mo MOUSE, ITL ITR, TAIPO, COMBO_TERM_FAST)
 
 ZMK_LAYER(taipo_inner_layer,
   &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none         &none

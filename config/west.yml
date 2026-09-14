@@ -30,6 +30,8 @@ manifest:
       url-base: https://github.com/hunner
     - name: nmunnich
       url-base: https://github.com/nmunnich
+    - name: kilipan
+      url-base: https://github.com/kilipan
     - name: local
       url-base: file:///home/hunner/Documents/git
 
@@ -63,6 +65,12 @@ manifest:
       remote: hunner
       revision: main
       path: modules/zmk/crescent
+
+    # Keyboards
+    - name: zmk-keyboards-lil-B
+      remote: kilipan
+      revision: main
+      path: modules/keyboards/lil-B
 
 
     # Only source necessary Zephyr modules. Remove this entire section to

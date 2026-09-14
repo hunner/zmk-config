@@ -81,6 +81,7 @@ ZMK_COMBO(right_click , &msc SCRL_RIGHT, LM3 LM4, MOUSE, COMBO_TERM_FAST)
 ZMK_COMBO(middle_click, &mkp MCLK      , LT1 LT3, MOUSE, COMBO_TERM_FAST)
 
 ZMK_LAYER(bluetooth,
-  &bt BT_CLR &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0
+  &none      &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0
   &none      &bt BT_SEL 5 &bt BT_SEL 4 &bt BT_SEL 3
 )
+ZMK_COMBO(clear_bt, &bt BT_CLR, LT4 LM4, BLUETOOTH, COMBO_TERM_FAST)
