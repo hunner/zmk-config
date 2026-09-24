@@ -40,8 +40,8 @@
 ;;    - a chordsv2 entry on (lmet rmet) that does (layer-switch ...)
 ;;    - a single F-key, e.g. binding f13 or f18 in defsrc
 ;;    - kanata's `(layer-switch ...)` on any key you never otherwise use
-;;  The F-row is deliberately left out of defsrc so macOS keeps its native
-;;  brightness / volume / media behaviour.
+;;  kanata seizes the keyboard, so macOS no longer translates the F-row itself:
+;;  the media functions are emitted here, and aft gives plain F1-F12.
 ;; ============================================================================
 
 (defcfg
@@ -75,8 +75,11 @@
 ;; ============================================================================
 
 (defvar
-  ;; &hml / &hmr: tapping-term-ms = <280>
-  hrm-hold    280
+  ;; ZMK &hml / &hmr use tapping-term-ms = <280>. Lowered here: the tap-hold
+  ;; variant below is release-based, so a chord with a key outside both hand
+  ;; lists (tab, ret) only commits the modifier once this elapses, and 280 ms
+  ;; was a noticeable wait before ctrl-ret and friends registered.
+  hrm-hold    180
   ;; QUICK_TAP_MS = 175.  In kanata this is the tap-repress-timeout: a
   ;; press-release-press inside this window holds the TAP action, which is
   ;; exactly what ZMK's quick-tap-ms does (tap-into-hold repeat).
@@ -106,9 +109,15 @@
   mm-max      3
 
   ;; Mouse wheel: ZMK msc is 15 scroll units/s, no acceleration.
-  ;; 70 ms interval ~= 14 notches/s; 120 = one notch.
+  ;; 70 ms interval ~= 14 ticks/s.
+  ;;
+  ;; mw-distance is NOT the 120-per-notch unit documented for Linux and
+  ;; Windows -- kanata scopes that claim to those two platforms only. On macOS
+  ;; the value is written straight into a CGEvent ScrollWheel
+  ;; DELTA_AXIS_1 field (src/oskbd/macos.rs), which is measured in LINES. 120
+  ;; there meant 120 lines per tick, roughly a page and a half per tap.
   mw-interval 70
-  mw-distance 120
+  mw-distance 10
 )
 
 ;; ============================================================================
@@ -117,6 +126,8 @@
 
 (defsrc
   caps
+  tab    ret
+  f1     f2     f3     f4     f5     f6     f7     f8     f9     f10    f11    f12
   q    w    e    r    t         y    u    i    o    p
   a    s    d    f    g         h    j    k    l    ;
   z    x    c    v    b         n    m    ,    .
@@ -133,45 +144,30 @@
   ;;      hold-trigger-key-positions = other hand + both thumbs,
   ;;      require-prior-idle-ms = 150.
   ;;
-  ;; kanata: tap-hold-release-keys behaves like tap-hold-release (= balanced +
-  ;; hold-trigger-on-release: the hold fires early only once another key is
-  ;; pressed AND released) and additionally fires an early TAP when one of the
-  ;; listed keys is pressed.  Listing the same-hand keys therefore reproduces
-  ;; ZMK's positional restriction.
-  ;;
-  ;; One nuance is not reproduced: ZMK's `hold-trigger-on-release` defers the
-  ;; positional decision until the interrupting key is *released*, which lets
-  ;; you stack two mods on one hand.  kanata fires the early tap on the press.
-  ;; If you want that back, swap in (it parses and checks cleanly):
-  ;;   (tap-hold-release-tap-keys-release $quick-tap $hrm-hold a lsft () $left-hand)
-  ;; -- the same-hand list moves to the "pressed then released" slot.
-  ;;
-  ;; require-prior-idle is layered on top with a switch: if the previous key
-  ;; was pressed less than 150 ms ago, emit the plain letter and never the mod.
-  ;; (key-timing recency 1 is the previously pressed key -- the key this switch
-  ;; is deciding is not yet in the history.)  Note that kanata's key history
-  ;; records *outputs*, so a press that emits nothing does not reset the timer,
-  ;; whereas ZMK counts every physical press.
+  ;; kanata: tap-hold-release-tap-keys-release reproduces ZMK hold-trigger-on-release --
+  ;; the same-hand list is checked on that key's RELEASE, so same-hand mods stack.
+  ;; The switch applies require-prior-idle, but not while a modifier is already held:
+  ;; kanata key history records outputs, so the first mod would otherwise reset the timer.
 
   ;; left hand: A(shift) O(ctrl) E(alt) U(cmd)
-  hm-a (switch ((key-timing 1 lt $prior-idle)) a break
-               () (tap-hold-release-keys $quick-tap $hrm-hold a lsft $left-hand) break)
-  hm-o (switch ((key-timing 1 lt $prior-idle)) o break
-               () (tap-hold-release-keys $quick-tap $hrm-hold o lctl $left-hand) break)
-  hm-e (switch ((key-timing 1 lt $prior-idle)) e break
-               () (tap-hold-release-keys $quick-tap $hrm-hold e lalt $left-hand) break)
-  hm-u (switch ((key-timing 1 lt $prior-idle)) u break
-               () (tap-hold-release-keys $quick-tap $hrm-hold u lmet $left-hand) break)
+  hm-a (switch ((and (key-timing 1 lt $prior-idle) (not lsft rsft lctl rctl lalt ralt lmet rmet))) a break
+               () (tap-hold-release-tap-keys-release $quick-tap $hrm-hold a lsft () $left-hand) break)
+  hm-o (switch ((and (key-timing 1 lt $prior-idle) (not lsft rsft lctl rctl lalt ralt lmet rmet))) o break
+               () (tap-hold-release-tap-keys-release $quick-tap $hrm-hold o lctl () $left-hand) break)
+  hm-e (switch ((and (key-timing 1 lt $prior-idle) (not lsft rsft lctl rctl lalt ralt lmet rmet))) e break
+               () (tap-hold-release-tap-keys-release $quick-tap $hrm-hold e lalt () $left-hand) break)
+  hm-u (switch ((and (key-timing 1 lt $prior-idle) (not lsft rsft lctl rctl lalt ralt lmet rmet))) u break
+               () (tap-hold-release-tap-keys-release $quick-tap $hrm-hold u lmet () $left-hand) break)
 
   ;; right hand: H(cmd) T(alt) N(ctrl) S(shift)
-  hm-h (switch ((key-timing 1 lt $prior-idle)) h break
-               () (tap-hold-release-keys $quick-tap $hrm-hold h rmet $right-hand) break)
-  hm-t (switch ((key-timing 1 lt $prior-idle)) t break
-               () (tap-hold-release-keys $quick-tap $hrm-hold t ralt $right-hand) break)
-  hm-n (switch ((key-timing 1 lt $prior-idle)) n break
-               () (tap-hold-release-keys $quick-tap $hrm-hold n rctl $right-hand) break)
-  hm-s (switch ((key-timing 1 lt $prior-idle)) s break
-               () (tap-hold-release-keys $quick-tap $hrm-hold s rsft $right-hand) break)
+  hm-h (switch ((and (key-timing 1 lt $prior-idle) (not lsft rsft lctl rctl lalt ralt lmet rmet))) h break
+               () (tap-hold-release-tap-keys-release $quick-tap $hrm-hold h rmet () $right-hand) break)
+  hm-t (switch ((and (key-timing 1 lt $prior-idle) (not lsft rsft lctl rctl lalt ralt lmet rmet))) t break
+               () (tap-hold-release-tap-keys-release $quick-tap $hrm-hold t ralt () $right-hand) break)
+  hm-n (switch ((and (key-timing 1 lt $prior-idle) (not lsft rsft lctl rctl lalt ralt lmet rmet))) n break
+               () (tap-hold-release-tap-keys-release $quick-tap $hrm-hold n rctl () $right-hand) break)
+  hm-s (switch ((and (key-timing 1 lt $prior-idle) (not lsft rsft lctl rctl lalt ralt lmet rmet))) s break
+               () (tap-hold-release-tap-keys-release $quick-tap $hrm-hold s rsft () $right-hand) break)
 
   ;; -- thumbs (ZMK &lt, flavor balanced, 200 ms term, 175 ms quick-tap) -------
   ;; tap-hold-release == balanced: hold wins only after another key is pressed
@@ -214,6 +210,8 @@
 
 (deflayer helm
   @to-qwt
+  tab    ret
+  brdown brup   mctl   sls    dtn    dnd    prev   pp     next   mute   vold   volu
   z      x      b      p      y            f      g      c      r      l
   @hm-a  @hm-o  @hm-e  @hm-u  i            d      @hm-h  @hm-t  @hm-n  @hm-s
   q      j      k      @th-l  XX           @th-r  m      w      v
@@ -229,6 +227,8 @@
 
 (deflayer port
   _
+  _      _
+  _      _      _      _      _      _      _      _      _      _      _      _
   '      ,      .      ;      pgup         home   XX     XX     \      XX
   S-[    S-]    S-9    S-0    pgdn         end    =      /      S-=    -
   `      [      ]      _      XX           @th-ra XX     XX     XX
@@ -247,6 +247,8 @@
 
 (deflayer starboard
   _
+  _      _
+  _      _      _      _      _      _      _      _      _      _      _      _
   1      2      3      4      5            6      7      8      9      0
   XX     XX     XX     XX     XX           XX     left   down   up     right
   XX     XX     XX     @th-la XX           _      @to-qwt XX     @to-hlm
@@ -262,6 +264,8 @@
 
 (deflayer aft
   _
+  _      _
+  f1     f2     f3     f4     f5     f6     f7     f8     f9     f10    f11    f12
   f1     f2     f3     f4     f5           f6     f7     f8     f9     f10
   f11    f12    ins    del    @pst         @mw-l  @ms-l  @ms-d  @ms-u  @ms-r
   mlft   mrgt   mmid   _      XX           _      @mw-d  @mw-u  @mw-r
@@ -274,6 +278,8 @@
 
 (deflayer qwerty
   @to-hlm
+  _      _
+  brdown brup   mctl   sls    dtn    dnd    prev   pp     next   mute   vold   volu
   _      _      _      _      _            _      _      _      _      _
   _      _      _      _      _            _      _      _      _      _
   _      _      _      _      _            _      _      _      _
