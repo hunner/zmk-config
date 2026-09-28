@@ -68,7 +68,7 @@ ZMK_CONDITIONAL_LAYER(aft, PORT STARBOARD, AFT)
 
 /* Settings */
 
-#define QUICK_TAP_MS 175
+#define QUICK_TAP_MS 0
 
 &sk {  // sticky-key config
     //release-after-ms = <600>;  // release after 0.6s
