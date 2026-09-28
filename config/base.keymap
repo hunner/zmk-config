@@ -59,7 +59,7 @@ ZMK_CONDITIONAL_LAYER(aft, PORT STARBOARD, AFT)
 #define DSK_NEXT    &kp LG(LC(RIGHT))  // next     desktop
 
 
-#define L_BSPC      &lt PORT BSPC
+#define L_BSPC      &ltp PORT BSPC
 #define R_SPC       &lt STARBOARD SPC
 #define L_THUMB     L_BSPC
 #define R_THUMB     R_SPC
@@ -81,10 +81,28 @@ ZMK_CONDITIONAL_LAYER(aft, PORT STARBOARD, AFT)
 };
 
 &lt {  // layer-tap config
-    flavor = "hold-preferred";
+    flavor = "balanced";
     tapping-term-ms = <200>;
     quick-tap-ms = <QUICK_TAP_MS>;
 };
+
+// Left thumb only.
+//
+// "balanced" waits to see which key is released first, so lifting the thumb
+// before the other key sends the tap and drops the other key onto the base
+// layer. "hold-preferred" commits to the layer as soon as any other key goes
+// down, which is what the left thumb wants: its tap is BSPC, and a backspace
+// is rarely rolled straight into the next letter.
+//
+// The right thumb keeps "balanced" on purpose. Its tap is SPC, which is
+// followed immediately by a letter constantly, and under "hold-preferred" any
+// overlap in that roll turned the starboard layer on: <space>b came out as 3.
+ZMK_BEHAVIOR(ltp, hold_tap,
+    flavor = "hold-preferred";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+    bindings = <&mo>, <&kp>;
+)
 
 &caps_word {  // mods deactivate caps-word, requires PR #1441
     /delete-property/ ignore-modifiers;
@@ -341,7 +359,7 @@ ZMK_LAYER(qwerty_layer,
     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
         &hmls LSHFT A  &hml LCTRL S  &hml LALT D   &hml LGUI F   &kp G             &kp H         &hmr RGUI J   &hmr RALT K   &hmr RCTRL L  &hmrs RSHFT BSPC
     // ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────╯
-                      &kp Z         &kp X         &kp C         &lt PORT V        R_THUMB       &kp M         &kp N         &kp B
+                      &kp Z         &kp X         &kp C         &ltp PORT V        R_THUMB       &kp M         &kp N         &kp B
     //               ╰─────────────┴─────────────┼─────────────┼─────────────╯   ╰─────────────┴─────────────┼─────────────┼─────────────╯
 )
 

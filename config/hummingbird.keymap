@@ -23,12 +23,12 @@ ZMK_LAYER(qwerty_layer,
     // ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────╯   ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────╯
                        &kp Z         &kp X         &kp C                                         &kp M         &kp N         &kp B
     //               ╰─────────────┴─────────────┼─────────────┼─────────────╮   ╭─────────────┼─────────────┼─────────────┴─────────────╯
-                                                   &lt PORT V    &lt PORT V        R_THUMB       R_THUMB
+                                                   &ltp PORT V    &ltp PORT V        R_THUMB       R_THUMB
     //                                           ╰─────────────┴─────────────╯   ╰─────────────┴─────────────╯
 )
 
 // Night thumbs
-#define PORT_R      &lt PORT R
+#define PORT_R      &ltp PORT R
 #define STARB_SPC   &lt STARBOARD SPC
 // Night combos
 ZMK_COMBO(night_z,     &kp Z,      LB2 LB1, NIGHT, COMBO_TERM_SLOW)
