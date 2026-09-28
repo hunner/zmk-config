@@ -81,7 +81,7 @@ ZMK_CONDITIONAL_LAYER(aft, PORT STARBOARD, AFT)
 };
 
 &lt {  // layer-tap config
-    flavor = "balanced";
+    flavor = "hold-preferred";
     tapping-term-ms = <200>;
     quick-tap-ms = <QUICK_TAP_MS>;
 };
