@@ -120,6 +120,34 @@ ZMK_BEHAVIOR(hmr, hold_tap,  // right-hand HRMs
     hold-trigger-on-release;            // requires PR #1423
 )
 
+// Shift, without the require-prior-idle-ms gate the other mods keep.
+//
+// That gate forces a tap whenever another key was pressed in the preceding
+// 150ms, which is what stops a fast roll turning into an accidental mod. A
+// capital mid-word is that exact pattern though, so shift lost every race:
+// reaching for the right shift to type I gave si, and the left shift for L in
+// Long gave along, each pinky emitting its own letter instead of holding.
+//
+// The other mods keep the gate. Ctrl, alt, and gui are nearly always pressed
+// after a pause, so it costs them nothing and still catches their misfires.
+ZMK_BEHAVIOR(hmls, hold_tap,  // left-hand shift
+    flavor = "balanced";
+    tapping-term-ms = <280>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+    bindings = <&kp>, <&kp>;
+    hold-trigger-key-positions = <KEYS_R THUMBS>;
+    hold-trigger-on-release;
+)
+
+ZMK_BEHAVIOR(hmrs, hold_tap,  // right-hand shift
+    flavor = "balanced";
+    tapping-term-ms = <280>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+    bindings = <&kp>, <&kp>;
+    hold-trigger-key-positions = <KEYS_L THUMBS>;
+    hold-trigger-on-release;
+)
+
 /* Custom behaviors */
 
 // tap: num-word | hold: num-layer
@@ -230,7 +258,7 @@ ZMK_BEHAVIOR(comma_morph, mod_morph,
 //                                                                        ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
 #define LEFT_HELM_UPPER_ROW________________________________________________ &kp Z         &kp X         &kp B         &kp P         &kp Y
 //                                                                        ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-#define LEFT_HELM_MIDDLE_ROW_______________________________________________ &hml LSHFT A  &hml LCTRL O  &hml LALT E   &hml LGUI U   &kp I
+#define LEFT_HELM_MIDDLE_ROW_______________________________________________ &hmls LSHFT A  &hml LCTRL O  &hml LALT E   &hml LGUI U   &kp I
 //                                                                        ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────╯
 #define LEFT_HELM_LOWER_ROW____________________                                           &kp Q         &kp J         &kp K
 //                                            ^                                         ╰─────────────┴─────────────┴─────────────╯
@@ -238,7 +266,7 @@ ZMK_BEHAVIOR(comma_morph, mod_morph,
 //                                                                        ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
 #define RIGHT_HELM_UPPER_ROW_______________________________________________ &kp F         &kp G         &kp C         &kp R         &kp L
 //                                                                        ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-#define RIGHT_HELM_MIDDLE_ROW______________________________________________ &kp D         &hmr RGUI H   &hmr RALT T   &hmr RCTRL N  &hmr RSHFT S
+#define RIGHT_HELM_MIDDLE_ROW______________________________________________ &kp D         &hmr RGUI H   &hmr RALT T   &hmr RCTRL N  &hmrs RSHFT S
 //                                                                        ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────╯
 #define RIGHT_HELM_LOWER_ROW___________________                                           &kp M         &kp W         &kp V
 //                                            ^                                         ╰─────────────┴─────────────┴─────────────╯
@@ -301,7 +329,7 @@ ZMK_LAYER(helm_layer,
     //╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮  ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮╭──────╮
         X_LT     &kp Z         &kp X         &kp B         &kp P         &kp Y           X_MT      &kp F         &kp G         &kp C         &kp R         &kp L          X_RT
     //├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤  ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤├──────┤
-        X_LM     &hml LSHFT A  &hml LCTRL O  &hml LALT E   &hml LGUI U   &kp I           X_MM      &kp D         &hmr RGUI H   &hmr RALT T   &hmr RCTRL N  &hmr RSHFT S   X_RM
+        X_LM     &hmls LSHFT A  &hml LCTRL O  &hml LALT E   &hml LGUI U   &kp I           X_MM      &kp D         &hmr RGUI H   &hmr RALT T   &hmr RCTRL N  &hmrs RSHFT S   X_RM
     //├──────┤ ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────╯ ├──────┤  ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────╯├──────┤
     //├──────┤               ╰─────────────┴─────────────┴─────────────╯               ├──────┤                ╰─────────────┴─────────────┴─────────────╯              ├──────┤
     //╰──────╯                                                                         ╰──────╯                                                                         ╰──────╯
@@ -311,7 +339,7 @@ ZMK_LAYER(qwerty_layer,
     // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
         &kp Q         &kp W         &kp E         &kp R         &kp T             &kp Y         &kp U         &kp I         &kp O         &kp P
     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-        &hml LSHFT A  &hml LCTRL S  &hml LALT D   &hml LGUI F   &kp G             &kp H         &hmr RGUI J   &hmr RALT K   &hmr RCTRL L  &hmr RSHFT BSPC
+        &hmls LSHFT A  &hml LCTRL S  &hml LALT D   &hml LGUI F   &kp G             &kp H         &hmr RGUI J   &hmr RALT K   &hmr RCTRL L  &hmrs RSHFT BSPC
     // ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────╯
                       &kp Z         &kp X         &kp C         &lt PORT V        R_THUMB       &kp M         &kp N         &kp B
     //               ╰─────────────┴─────────────┼─────────────┼─────────────╯   ╰─────────────┴─────────────┼─────────────┼─────────────╯
@@ -326,7 +354,7 @@ ZMK_LAYER(aptmak_layer,
     // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
         &kp V         &kp W         &kp F         &kp P         &kp B             &kp J         &kp L         &kp U         &kp Y         &kp SQT
     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-        &hml LGUI R   &hml LALT S   &hml LCTRL T  &hml LSHFT H  &kp K             &kp X         &hml RSHFT N  &hml RCTRL A  &hml RALT I   &hml RGUI O
+        &hml LGUI R   &hml LALT S   &hml LCTRL T  &hmls LSHFT H  &kp K             &kp X         &hml RSHFT N  &hml RCTRL A  &hml RALT I   &hml RGUI O
     // ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────╯
                       &kp C         &kp G         &kp D         PORT_SP           STARB_E       &kp M         &kp COMMA     &kp DOT
     //               ╰─────────────┴─────────────┼─────────────┼─────────────╯   ╰─────────────┴─────────────┼─────────────┼─────────────╯
