@@ -52,7 +52,7 @@
 #define TAIPO_INNER 1
 #define TAIPO_OUTER 2
 #define TAIPO_THUMB_ORDER_OIIO 1
-#define TAIPO_MODS_SACG 1
+#define TAIPO_MODS_SCAG 1
 #include <zmk-taipo/taipo.dtsi>
 #include <zmk-taipo/features/virtual_thumbs.dtsi>
 

@@ -117,7 +117,7 @@
   ;; DELTA_AXIS_1 field (src/oskbd/macos.rs), which is measured in LINES. 120
   ;; there meant 120 lines per tick, roughly a page and a half per tap.
   mw-interval 70
-  mw-distance 10
+  mw-distance 2
 )
 
 ;; ============================================================================

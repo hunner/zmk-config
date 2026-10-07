@@ -17,7 +17,7 @@
 #define TAIPO 6
 #define TAIPO_INNER 7
 #define TAIPO_OUTER 8
-#define TAIPO_MODS_SACG 1
+#define TAIPO_MODS_SCAG 1
 #define MOUSE 9
 #ifndef CRESCENT
 #define CRESCENT 10
