@@ -1,0 +1,70 @@
+/*
+ * Six 1u bottom keys. The centered 2u footprints share P0.29 and P0.03
+ * with the inner 1u of each pair. The outer 1u keys are P1.10 and P1.11.
+ * Positions match config/lil_b.keymap: 16 LH2, 17 LH1, 18 LH0, 19 RH0, 20 RH1, 21 RH2.
+ */
+
+#include <dt-bindings/zmk/matrix_transform.h>
+
+&kscan0 {
+    input-gpios
+        = <&gpio0 30 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        , <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        , <&gpio0 4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        , <&gpio0 12 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        , <&gpio0 24 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        , <&gpio0 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        , <&gpio0 22 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        , <&gpio0 9 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        , <&gpio0 31 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        , <&gpio0 26 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        , <&gpio0 8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        , <&gpio0 15 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        , <&gpio0 13 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        , <&gpio0 17 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        , <&gpio0 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        , <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        , <&gpio1 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        , <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        , <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        , <&gpio0 28 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        , <&gpio0 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        , <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        ;
+};
+
+&default_transform {
+    columns = <22>;
+    map = <
+        RC(0,0) RC(0,1) RC(0,2)  RC(0,3) RC(0,4) RC(0,5) RC(0,6) RC(0,7)
+        RC(0,8) RC(0,9) RC(0,10) RC(0,11) RC(0,12) RC(0,13) RC(0,14) RC(0,15)
+        RC(0,16) RC(0,17) RC(0,18) RC(0,19) RC(0,20) RC(0,21)
+        >;
+};
+
+&layout_0 {
+    keys
+        = <&key_physical_attrs 100 100   0   0       0     0     0>
+        , <&key_physical_attrs 100 100 100   0       0     0     0>
+        , <&key_physical_attrs 100 100 200   0       0     0     0>
+        , <&key_physical_attrs 100 100 300   0       0     0     0>
+        , <&key_physical_attrs 100 100 400   0       0     0     0>
+        , <&key_physical_attrs 100 100 500   0       0     0     0>
+        , <&key_physical_attrs 100 100 600   0       0     0     0>
+        , <&key_physical_attrs 100 100 700   0       0     0     0>
+        , <&key_physical_attrs 100 100   0 100       0     0     0>
+        , <&key_physical_attrs 100 100 100 100       0     0     0>
+        , <&key_physical_attrs 100 100 200 100       0     0     0>
+        , <&key_physical_attrs 100 100 300 100       0     0     0>
+        , <&key_physical_attrs 100 100 400 100       0     0     0>
+        , <&key_physical_attrs 100 100 500 100       0     0     0>
+        , <&key_physical_attrs 100 100 600 100       0     0     0>
+        , <&key_physical_attrs 100 100 700 100       0     0     0>
+        , <&key_physical_attrs 100 100 100 200       0     0     0>
+        , <&key_physical_attrs 100 100 200 200       0     0     0>
+        , <&key_physical_attrs 100 100 300 200       0     0     0>
+        , <&key_physical_attrs 100 100 400 200       0     0     0>
+        , <&key_physical_attrs 100 100 500 200       0     0     0>
+        , <&key_physical_attrs 100 100 600 200       0     0     0>
+        ;
+};

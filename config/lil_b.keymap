@@ -1,5 +1,5 @@
 /*
- * lil-B - 20-key taipo keyboard
+ * lil-B - 22-key taipo keyboard
  */
 
 #include <behaviors.dtsi>
@@ -7,13 +7,13 @@
 #include <dt-bindings/zmk/bt.h>
 #include <zmk-helpers/helper.h>
 
-/*                              20 KEY MATRIX / LAYOUT MAPPING (lil-B)
+/*                              22 KEY MATRIX / LAYOUT MAPPING (lil-B)
 
   ╭─────────────────╮ ╭─────────────────╮ ╭─────────────────╮ ╭─────────────────╮
   │  0   1   2   3  │ │  4   5   6   7  │ │ LT4 LT3 LT2 LT1 │ │ RT1 RT2 RT3 RT4 │
   │  8   9  10  11  │ │ 12  13  14  15  │ │ LM4 LM3 LM2 LM1 │ │ RM1 RM2 RM3 RM4 │
-  ╰───╮ 16  17 ╭────╯ ╰────╮ 18  19 ╭───╯ ╰───╮ LH1 LH0 ╭───╯ ╰───╮ RH0 RH1 ╭───╯
-      ╰────────╯           ╰────────╯         ╰─────────╯         ╰─────────╯ */
+  │ 16  17  18 ╭────╯ ╰────╮ 19  20  21 │ │ LH2 LH1 LH0 ╭───╯ ╰───╮ RH0 RH1 RH2 │
+  ╰────────────╯           ╰────────────╯ ╰─────────────╯         ╰─────────────╯ */
 
 // Left hand top row (pinky to index)
 #define LT4  0
@@ -39,11 +39,14 @@
 #define RM3 14
 #define RM4 15
 
-// Thumbs: inner then outer for left, outer then inner for right
-#define LH1 16
-#define LH0 17
-#define RH0 18
-#define RH1 19
+// Bottom row, left to right. LH0 and RH0 are the inner thumbs.
+// LH2 (P1.10) and RH2 (P1.11) are the extra outer 1u keys.
+#define LH2 16
+#define LH1 17
+#define LH0 18
+#define RH0 19
+#define RH1 20
+#define RH2 21
 
 #undef TAIPO
 #undef TAIPO_INNER
@@ -60,31 +63,32 @@
 
 #define MOUSE 3
 #define BLUETOOTH 4
+#define MOUSE_HOLD 5
 
 ZMK_LAYER(taipo,
     // ╭─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────╮
          &none         &none         &none         &none             &none         &none         &none         &none
     // ├─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┤
          &none         &none         &none         &none             &none         &none         &none         &none
-    // ╰─────────────┼─────────────┼─────────────┼─────────────╯   ╰─────────────┼─────────────┼─────────────┼─────────────╯
-                       &none         &none                                         &none         &none
-    //               ╰─────────────┴─────────────╯                               ╰─────────────┴─────────────╯
+    // ├─────────────┼─────────────┼─────────────┼─────────────╯   ╰─────────────┼─────────────┼─────────────┼─────────────┤
+         &none         &none         &none                                         &none         &none         &none
+    // ╰─────────────┴─────────────┴─────────────╯                               ╰─────────────┴─────────────┴─────────────╯
 )
 ZMK_COMBO(tog_mouse, &tog MOUSE, LT1 LM2 LT3, TAIPO MOUSE, COMBO_TERM_FAST)
 ZMK_COMBO(tog_bluetooth, &tog BLUETOOTH, LT1 LM2 LM3 LT4, TAIPO BLUETOOTH, COMBO_TERM_FAST)
-ZMK_COMBO(mouse_left_thumbs, &mo MOUSE, LH0 LH1, TAIPO MOUSE, COMBO_TERM_FAST)
-ZMK_COMBO(mouse_right_thumbs, &mo MOUSE, RH0 RH1, TAIPO MOUSE, COMBO_TERM_FAST)
-ZMK_COMBO(mouse_inner_thumbs, &mo MOUSE, LH1 RH1, TAIPO MOUSE, COMBO_TERM_FAST)
-ZMK_COMBO(mouse_outer_thumbs, &mo MOUSE, LH0 RH0, TAIPO MOUSE, COMBO_TERM_FAST)
+ZMK_COMBO(mouse_left_thumbs, &mo MOUSE_HOLD, LH0 LH1, TAIPO MOUSE_HOLD, COMBO_TERM_FAST)
+ZMK_COMBO(mouse_right_thumbs, &mo MOUSE_HOLD, RH0 RH1, TAIPO MOUSE_HOLD, COMBO_TERM_FAST)
+ZMK_COMBO(mouse_inner_thumbs, &mo MOUSE_HOLD, LH1 RH1, TAIPO MOUSE_HOLD, COMBO_TERM_FAST)
+ZMK_COMBO(mouse_outer_thumbs, &mo MOUSE_HOLD, LH0 RH0, TAIPO MOUSE_HOLD, COMBO_TERM_FAST)
 
 ZMK_LAYER(inner,
     // ╭─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────╮
          &none         &none         &none         &none             &none         &none         &none         &none
     // ├─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┤
          &none         &none         &none         &none             &none         &none         &none         &none
-    // ╰─────────────┼─────────────┼─────────────┼─────────────╯   ╰─────────────┼─────────────┼─────────────┼─────────────╯
-                       &none         &none                                         &none         &none
-    //               ╰─────────────┴─────────────╯                               ╰─────────────┴─────────────╯
+    // ├─────────────┼─────────────┼─────────────┼─────────────╯   ╰─────────────┼─────────────┼─────────────┼─────────────┤
+         &none         &none         &none                                         &none         &none         &none
+    // ╰─────────────┴─────────────┴─────────────╯                               ╰─────────────┴─────────────┴─────────────╯
 )
 
 ZMK_LAYER(outer,
@@ -92,32 +96,44 @@ ZMK_LAYER(outer,
          &none         &none         &none         &none             &none         &none         &none         &none
     // ├─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┤
          &none         &none         &none         &none             &none         &none         &none         &none
-    // ╰─────────────┼─────────────┼─────────────┼─────────────╯   ╰─────────────┼─────────────┼─────────────┼─────────────╯
-                       &none         &none                                         &none         &none
-    //               ╰─────────────┴─────────────╯                               ╰─────────────┴─────────────╯
+    // ├─────────────┼─────────────┼─────────────┼─────────────╯   ╰─────────────┼─────────────┼─────────────┼─────────────┤
+         &none         &none         &none                                         &none         &none         &none
+    // ╰─────────────┴─────────────┴─────────────╯                               ╰─────────────┴─────────────┴─────────────╯
 )
 
+// Toggled by I+T+S. Same letter on either hand: N up, E left, T down, O right.
+// Pinky scrolls up and down. Upper ring scrolls right, upper index scrolls left.
 ZMK_LAYER(mouse,
     // ╭─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────╮
-         &msc SCRL_RIGHT &msc SCRL_UP &msc SCRL_DOWN &msc SCRL_LEFT  &msc SCRL_LEFT &msc SCRL_DOWN &msc SCRL_UP &msc SCRL_RIGHT
+         &msc SCRL_UP  &msc SCRL_RIGHT &mmv MOVE_UP &msc SCRL_LEFT   &msc SCRL_LEFT &mmv MOVE_UP &msc SCRL_RIGHT &msc SCRL_UP
     // ├─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┤
-         &mmv MOVE_RIGHT &mmv MOVE_UP &mmv MOVE_DOWN &mmv MOVE_LEFT  &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT
-    // ╰─────────────┼─────────────┼─────────────┼─────────────╯   ╰─────────────┼─────────────┼─────────────┼─────────────╯
-                       &mkp LCLK     &mkp RCLK                                     &mkp RCLK     &mkp LCLK
-    //               ╰─────────────┴─────────────╯                               ╰─────────────┴─────────────╯
+         &msc SCRL_DOWN &mmv MOVE_RIGHT &mmv MOVE_DOWN &mmv MOVE_LEFT   &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT &msc SCRL_DOWN
+    // ├─────────────┼─────────────┼─────────────┼─────────────╯   ╰─────────────┼─────────────┼─────────────┼─────────────┤
+         &none         &mkp LCLK     &mkp RCLK                                     &mkp RCLK     &mkp LCLK     &none
+    // ╰─────────────┴─────────────┴─────────────╯                               ╰─────────────┴─────────────┴─────────────╯
 )
 ZMK_LAYER(bluetooth,
     // ╭─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────╮
          &soft_off     &bt BT_SEL 2  &bt BT_SEL 1  &bt BT_SEL 0      &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &soft_off
     // ├─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┤
          &none         &bt BT_SEL 5  &bt BT_SEL 4  &bt BT_SEL 3      &bt BT_SEL 3  &bt BT_SEL 4  &bt BT_SEL 5  &none
-    // ╰─────────────┼─────────────┼─────────────┼─────────────╯   ╰─────────────┼─────────────┼─────────────┼─────────────╯
-                       &none         &none                                         &none         &none
-    //               ╰─────────────┴─────────────╯                               ╰─────────────┴─────────────╯
+    // ├─────────────┼─────────────┼─────────────┼─────────────╯   ╰─────────────┼─────────────┼─────────────┼─────────────┤
+         &none         &none         &none                                         &none         &none         &none
+    // ╰─────────────┴─────────────┴─────────────╯                               ╰─────────────┴─────────────┴─────────────╯
 )
 //&soft_off {
 //    hold-time-ms = <3000>;
 //};
+// Thumb pairs hold this layer. Outside in on either hand: right, up, down, left.
+ZMK_LAYER(mouse_hold,
+    // ╭─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────╮
+         &msc SCRL_RIGHT &msc SCRL_UP &msc SCRL_DOWN &msc SCRL_LEFT  &msc SCRL_LEFT &msc SCRL_DOWN &msc SCRL_UP &msc SCRL_RIGHT
+    // ├─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┤
+         &mmv MOVE_RIGHT &mmv MOVE_UP &mmv MOVE_DOWN &mmv MOVE_LEFT  &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT
+    // ├─────────────┼─────────────┼─────────────┼─────────────╯   ╰─────────────┼─────────────┼─────────────┼─────────────┤
+         &none         &mkp LCLK     &mkp RCLK                                     &mkp RCLK     &mkp LCLK     &none
+    // ╰─────────────┴─────────────┴─────────────╯                               ╰─────────────┴─────────────┴─────────────╯
+)
 ZMK_COMBO(lclear_bt, &bt BT_CLR, LT4 LM4, BLUETOOTH, COMBO_TERM_FAST)
 ZMK_COMBO(rclear_bt, &bt BT_CLR, RT4 RM4, BLUETOOTH, COMBO_TERM_FAST)
 
